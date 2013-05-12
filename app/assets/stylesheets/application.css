@@ -11,4 +11,47 @@
  *= require_self
  *= require_tree .
  */
-*= require twitter/bootstrap
+
+ #idea {
+ 	margin:10px 20px;
+ 	padding: 8px;
+ 	/*background-color: rgb(247, 247, 249);
+ 	border: 1px solid rgb(225, 225, 232);*/
+ 	border: 1px solid rgb(247, 247, 249);
+ 	border-left: 5px solid rgb(225, 225, 232);
+ 	border-right: 5px solid rgb(225, 225, 232);
+ 	box-shadow: 40px 0px 0px rgb(251, 251, 252) inset, 41px 0px 0px rgb(236, 236, 240) inset;
+ }
+
+ .user-img {
+ 	float:left;
+ 	margin:10px;
+ 	width: 100px;
+ }
+
+ .buttons-thumbs{
+ 	float:right;
+ 	width: 100px;
+ }
+
+ .buttons-thumbs a{
+ 	margin-top: 5px;
+ }
+
+ .comment{
+ 	margin:10px 50px;
+ 	border: 1px solid rgb(247, 247, 249);
+ 	border-left: 5px solid rgb(225, 225, 232);
+ 	border-right: 5px solid rgb(225, 225, 232);
+ 	box-shadow: 40px 0px 0px rgb(251, 251, 252) inset, 41px 0px 0px rgb(236, 236, 240) inset;
+ }
+
+ .comment .user-img {
+ 	float:left;
+ 	margin:10px;
+ 	width: 50px;
+ }
+
+ .clear {
+	clear: both; 	
+ }
