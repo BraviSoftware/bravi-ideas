@@ -12,6 +12,18 @@
  *= require_tree .
  */
 
+#header-main{
+
+}
+
+#header-main h2{
+	margin-bottom: 0;
+}
+#header-main span{
+	margin-top: 0;
+	font-size: 12px;
+}
+
  #idea {
  	margin:10px 20px;
  	padding: 8px;
@@ -26,12 +38,12 @@
  .user-img {
  	float:left;
  	margin:10px;
- 	width: 100px;
+ 	width: 70px;
  }
 
  .buttons-thumbs{
  	float:right;
- 	width: 100px;
+ 	width: 110px;
  }
 
  .buttons-thumbs a{
@@ -46,12 +58,23 @@
  	box-shadow: 40px 0px 0px rgb(251, 251, 252) inset, 41px 0px 0px rgb(236, 236, 240) inset;
  }
 
+ .button-thumbs-mini{
+ 	float:right;
+ 	margin-top: 0.5%;
+ 	margin-right: 0.5%;
+ }
+
  .comment .user-img {
  	float:left;
  	margin:10px;
- 	width: 50px;
+ 	width: 35px;
  }
 
  .clear {
 	clear: both; 	
+ }
+
+ #footer-main{
+ 	margin-top: 10px;
+ 	font-size: 10px;
  }
