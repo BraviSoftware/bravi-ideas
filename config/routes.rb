@@ -1,4 +1,7 @@
 BraviIdeas::Application.routes.draw do
+  resources :ideas
+
+
   get "home/index"
   
   root :to => "home#index"

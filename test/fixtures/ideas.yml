@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  description: MyString
+  positive: 1
+  negative: 1
+  created_date: 2013-05-13
+
+two:
+  title: MyString
+  description: MyString
+  positive: 1
+  negative: 1
+  created_date: 2013-05-13
