@@ -41,13 +41,10 @@
  	width: 70px;
  }
 
- .buttons-thumbs{
+ .button-thumbs{
  	float:right;
- 	width: 110px;
- }
-
- .buttons-thumbs a{
- 	margin-top: 5px;
+ 	margin-top: 0.5%;
+ 	margin-right: 0.5%;
  }
 
  .comment{
@@ -58,11 +55,7 @@
  	box-shadow: 40px 0px 0px rgb(251, 251, 252) inset, 41px 0px 0px rgb(236, 236, 240) inset;
  }
 
- .button-thumbs-mini{
- 	float:right;
- 	margin-top: 0.5%;
- 	margin-right: 0.5%;
- }
+
 
  .comment .user-img {
  	float:left;
