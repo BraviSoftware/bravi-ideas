@@ -1,3 +1,8 @@
+<ul class="breadcrumb">
+  <li><a href="/ideas/">Ideas </a><span class="divider">/</span></li>
+  <li class="active">Show</li>
+</ul>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -26,5 +31,8 @@
 </p>
 
 
-<%= link_to 'Edit', edit_idea_path(@idea) %> |
-<%= link_to 'Back', ideas_path %>
+
+<div class="form-actions">
+  <%= link_to 'Edit', edit_idea_path(@idea), :class => 'btn btn-primary' %>
+  <%= link_to 'Back', ideas_path, :class => 'btn' %>
+</div>

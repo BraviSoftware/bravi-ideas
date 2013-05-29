@@ -1,6 +1,12 @@
-<h1>Editing idea</h1>
+<ul class="breadcrumb">
+  <li><a href="/ideas/">Ideas </a><span class="divider">/</span></li>
+  <li class="active">Edit</li>
+</ul>
 
-<%= render 'form' %>
+<fieldset>
+	<legend>Editing idea</legend>
+	<%= render 'form' %>
+</fieldset>
 
-<%= link_to 'Show', @idea %> |
-<%= link_to 'Back', ideas_path %>
+<%= link_to 'Show', @idea, :class => 'btn btn' %>
+<%= link_to 'Back', ideas_path, :class => 'btn' %>
