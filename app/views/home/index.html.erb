@@ -1,53 +1,37 @@
-<div id="idea">
+<% @ideas.each do |idea| %>
+<div class="idea" data-idea="<%= idea.id %>">
 	<!-- Buttons thumbs -->
-	<a class="btn btn-success button-thumbs" href="#"><i class="icon-thumbs-up"> 5</i></a>
-	<a class="btn btn-danger button-thumbs" href="#"><i class="icon-thumbs-down"> 1</i></a>
+	<a class="idea-like btn btn-success button-thumbs" href="#">
+		<i class="icon-thumbs-up"> <%= idea.positive %></i></a>
+	<a class="idea-unlike btn btn-danger button-thumbs" href="#">
+		<i class="icon-thumbs-down"> <%= idea.negative %></i></a>
 	<!-- User logo -->
 	<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
 	<!-- Idea content -->
-	<h3>Japanese language class</h3>
-	<p>Would be nice if we have japanese language class.</p>
+	<h3><%= idea.title %></h3>
+	<p><%= idea.description %></p>
 	<div class="clear"></div>
+
+	<div class="group-comments">
+		<div class="comment">
+			<a class="btn btn-success btn-mini button-thumbs disabled" href="#" disabled>
+				<i class="icon-thumbs-up"></i>
+			</a>
+			<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
+			<p>I liked. We should try it.</p>
+			<div class="clear"></div>
+		</div>
+
+
+		<div class="comment">
+			<a class="btn btn-danger btn-mini button-thumbs disabled" href="#" disabled>
+				<i class="icon-thumbs-down"></i>
+			</a>
+			<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
+			<p>I don't know. Japanese is too hard.</p>
+			<div class="clear"></div>
+		</div>
+	</div>
 </div>
+<% end %>
 
-<div class="comment">
-	<!-- Buttons thumb -->
-	<a class="btn btn-success btn-mini button-thumbs disabled" href="#" disabled>
-		<i class="icon-thumbs-up"></i>
-	</a>
-	<!-- User logo -->
-	<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
-	<!-- Comment content -->
-	<p>I liked. We should try it.</p>
-	<div class="clear"></div>
-</div>
-
-
-<div class="comment">
-	<a class="btn btn-danger btn-mini button-thumbs disabled" href="#" disabled>
-		<i class="icon-thumbs-down"></i>
-	</a>
-	<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
-	<p>I don't know. Japanese is too hard.</p>
-	<div class="clear"></div>
-</div>
-
-
-<div class="comment">
-	<a class="btn btn-success btn-mini button-thumbs disabled" href="#" disabled>
-		<i class="icon-thumbs-up"></i>
-	</a>
-	<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
-	<p>I'm tottally in.</p>
-	<div class="clear"></div>
-</div>
-
-
-<div class="comment">
-	<a class="btn btn-danger btn-mini button-thumbs disabled" href="#" disabled>
-		<i class="icon-thumbs-down"></i>
-	</a>
-	<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
-	<p>Why japanese? We don't have japanese customers.</p>
-	<div class="clear"></div>
-</div>

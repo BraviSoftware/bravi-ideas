@@ -7,4 +7,13 @@ class Idea < ActiveRecord::Base
   	self.positive ||= 0
   	self.created_date ||= Time.now
   end
+
+
+  def like
+  	self.positive += 1
+  end
+
+  def unlike
+  	self.negative += 1
+  end
 end

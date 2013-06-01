@@ -24,7 +24,7 @@
 	font-size: 12px;
 }
 
- #idea {
+ .idea {
  	margin:10px 20px;
  	padding: 8px;
  	/*background-color: rgb(247, 247, 249);
@@ -70,4 +70,9 @@
  #footer-main{
  	margin-top: 10px;
  	font-size: 10px;
+ }
+
+
+ .group-comments{
+ 	display: none;
  }
