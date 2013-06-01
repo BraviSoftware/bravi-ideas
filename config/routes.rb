@@ -1,6 +1,11 @@
 BraviIdeas::Application.routes.draw do
-  resources :ideas
 
+  resources :ideas do
+    member do
+      put :like
+      put :unlike
+    end
+  end
 
   get "home/index"
   

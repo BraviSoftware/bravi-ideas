@@ -14,3 +14,49 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+$(function (argument) {
+	$('.idea > .idea-like').click(like);
+	$('.idea > .idea-unlike').click(unlike);
+
+	function like () {
+		if(!isDisabled(this)) vote('like', getIdeaId(this), voteCallback(this));
+	}
+
+	function unlike () {
+		if(!isDisabled(this)) vote('unlike', getIdeaId(this), voteCallback(this));
+	}
+
+	function getIdeaId (elment) {
+		return $(elment).parent('.idea').data('idea');
+	}
+
+	function voteCallback (elment) {
+		var labelTotal = $(elment).find('i');
+
+		var voteTotal = parseInt(labelTotal.text());
+		labelTotal.text(' ' + (voteTotal + 1));
+
+		disableVoteButtons(elment);
+	}
+
+	function disableVoteButtons (elment) {
+		var idea = $(elment).parent('.idea');
+
+		$('.idea-like, .idea-unlike', idea)
+		.addClass('disabled')
+		.attr('disabled', 'disabled');		
+	}
+
+	function isDisabled (element) {
+		return $(element).attr('disabled');
+	}
+
+	function vote (type, id, callback) {
+		$.ajax({
+			type    : 'PUT',
+			url     : 'http://localhost:3000/ideas/' + id + '/' + type + '.json',
+			success : callback
+		});
+	}
+});

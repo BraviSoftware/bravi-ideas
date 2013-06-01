@@ -80,4 +80,37 @@ class IdeasController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
+  # PUT /ideas/1/like
+  def like
+    @idea = Idea.find(params[:id])
+    
+    @idea.like()
+
+    respond_to do |format|
+      if @idea.update_attribute :positive, @idea.positive
+        format.json { head :no_content }
+      else
+        format.json { render json: @idea.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /ideas/1/unlike
+  def unlike
+    @idea = Idea.find(params[:id])
+    
+    @idea.unlike()
+
+    respond_to do |format|
+      if @idea.update_attribute :negative, @idea.negative
+        format.json { head :no_content }
+      else
+        format.json { render json: @idea.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 end
