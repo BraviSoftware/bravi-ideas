@@ -20,11 +20,11 @@ $(function (argument) {
 	$('.idea > .idea-unlike').click(unlike);
 
 	function like () {
-		if(!isDisabled(this)) vote('like', getIdeaId(this), voteCallback(this));
+		vote('like', getIdeaId(this), voteCallback(this));
 	}
 
 	function unlike () {
-		if(!isDisabled(this)) vote('unlike', getIdeaId(this), voteCallback(this));
+		vote('unlike', getIdeaId(this), voteCallback(this));
 	}
 
 	function getIdeaId (elment) {
@@ -45,11 +45,8 @@ $(function (argument) {
 
 		$('.idea-like, .idea-unlike', idea)
 		.addClass('disabled')
-		.attr('disabled', 'disabled');		
-	}
-
-	function isDisabled (element) {
-		return $(element).attr('disabled');
+		.prop('disabled', true)
+		.off('click');		
 	}
 
 	function vote (type, id, callback) {
