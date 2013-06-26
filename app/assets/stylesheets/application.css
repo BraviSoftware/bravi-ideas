@@ -26,29 +26,35 @@
 
  .idea {
  	margin: 10px 0 0 0;
- 	padding: 8px;
+ 	
  	border: 1px solid #d8d8d8;
  	background: #f9f9f9;
  	-moz-border-radius: 4px;
- 	-webkit-border-radius: 4px 4px 0 0;
- 	border-radius: 4px 4px 0 0;
+ 	-webkit-border-radius: 4px;
+ 	border-radius: 4px;
  	-moz-box-shadow: inset 0 0 0 1px #fff;
  	-webkit-box-shadow: inset 0 0 0 1px #fff;
  	box-shadow: inset 0 0 0 1px #fff;
- 	height: 150px;
+
+ }
+ .idea-content{
+ 	padding: 8px;
+	height: 150px;
+ 	position: relative;
  }
 
  .idea h3 {
  	font-size: 15px;
  	line-height: 18px;
- 	height: 50px;
+ 	min-height: 50px;
  	border-bottom: 1px dashed #ccc;
+ 	margin-top: 3px;
  }
 
  .user-img {
  	float:left;
- 	margin:10px;
- 	width: 35px;
+ 	margin:5px;
+ 	width: 25px;
  }
 
  .button-thumbs{
@@ -102,7 +108,8 @@
  	box-shadow: inset 0 0 0 1px #fff; 
  }
 
- .percentage-votes-bar {
+ .percentage-votes-bar,
+ .percentage-votes-values ul {
  	display: table;
  	width: 100%;
  	height: auto;
@@ -111,14 +118,11 @@
  	overflow: hidden;
  	border-bottom-left-radius: 3px;
  	border-bottom-right-radius: 3px;
+ }
+ .percentage-votes-bar{
  	background-color:#5bb75b;
  }
 
-/*
- .repository-lang-stats-graph .language-color:first-child {
- 	border-bottom-left-radius: 3px;
- }
-*/
  .percentage-votes-bar .percentage-vote {
  	height: auto;
  	line-height: 12px;
@@ -127,6 +131,35 @@
  	text-indent: -9999px;
  }
 
+
  .percentage-votes-values{
- 	
+ 	display: none;
+ 	position: absolute;
+ 	bottom: 0;
+ 	left: 0;
+ 	width: 100%;
+
+ 	color: rgb(96, 96, 96);
+border-top: solid 1px rgb(183, 183, 183);
+background: rgb(255, 255, 255);
+background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(237, 237, 237)));
+background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(237, 237, 237));
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
  }
+
+ .percentage-votes-values ul{
+ 	margin: 0;
+ 	border-radius: 0;
+ 	border: 0;
+ }
+
+ .percentage-votes-values ul li{
+ 	width: 50%;
+ 	height: auto;
+ 	line-height: 12px;
+ 	vertical-align: top;
+ 	display: inline-block;
+ 	text-align: center;
+ 	padding: 3px;
+ }
+
