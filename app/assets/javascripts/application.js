@@ -19,6 +19,17 @@ $(function (argument) {
 	$('.idea > .idea-like').click(like);
 	$('.idea > .idea-unlike').click(unlike);
 
+	$('.percentage-votes-bar').click(function(e) {
+		var box = $(this).prev('.idea-content').find('.percentage-votes-values');
+
+		if(box.is(':visible'))
+			box.slideUp();
+		else
+			box.slideDown();
+
+		e.preventDefault();
+	});
+
 	function like () {
 		vote('like', getIdeaId(this), voteCallback(this));
 	}
