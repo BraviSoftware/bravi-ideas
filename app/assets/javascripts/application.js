@@ -30,6 +30,8 @@ $(function (argument) {
 		e.preventDefault();
 	});
 
+	$('[data-toggle="tooltip"]').tooltip();
+
 	function like () {
 		vote('like', getIdeaId(this), voteCallback(this));
 	}
