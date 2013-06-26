@@ -30,6 +30,8 @@ $(function (argument) {
 		e.preventDefault();
 	});
 
+	$('[data-toggle="tooltip"]').tooltip();
+
 	function like () {
 		if(!isDisabled(this)) vote('like', getIdeaId(this), voteCallback(this));
 	}
