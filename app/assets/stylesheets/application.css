@@ -12,33 +12,43 @@
  *= require_tree .
  */
 
-#header-main{
+ #header-main{
 
-}
+ }
 
-#header-main h2{
-	margin-bottom: 0;
-}
-#header-main span{
-	margin-top: 0;
-	font-size: 12px;
-}
+ #header-main h2{
+ 	margin-bottom: 0;
+ }
+ #header-main span{
+ 	margin-top: 0;
+ 	font-size: 12px;
+ }
 
  .idea {
- 	margin:10px 20px;
+ 	margin: 10px 0 0 0;
  	padding: 8px;
- 	/*background-color: rgb(247, 247, 249);
- 	border: 1px solid rgb(225, 225, 232);*/
- 	border: 1px solid rgb(247, 247, 249);
- 	border-left: 5px solid rgb(225, 225, 232);
- 	border-right: 5px solid rgb(225, 225, 232);
- 	box-shadow: 40px 0px 0px rgb(251, 251, 252) inset, 41px 0px 0px rgb(236, 236, 240) inset;
+ 	border: 1px solid #d8d8d8;
+ 	background: #f9f9f9;
+ 	-moz-border-radius: 4px;
+ 	-webkit-border-radius: 4px 4px 0 0;
+ 	border-radius: 4px 4px 0 0;
+ 	-moz-box-shadow: inset 0 0 0 1px #fff;
+ 	-webkit-box-shadow: inset 0 0 0 1px #fff;
+ 	box-shadow: inset 0 0 0 1px #fff;
+ 	height: 150px;
+ }
+
+ .idea h3 {
+ 	font-size: 15px;
+ 	line-height: 18px;
+ 	height: 50px;
+ 	border-bottom: 1px dashed #ccc;
  }
 
  .user-img {
  	float:left;
  	margin:10px;
- 	width: 70px;
+ 	width: 35px;
  }
 
  .button-thumbs{
@@ -64,7 +74,7 @@
  }
 
  .clear {
-	clear: both; 	
+ 	clear: both; 	
  }
 
  #footer-main{
@@ -75,4 +85,48 @@
 
  .group-comments{
  	display: none;
+ }
+
+ .box {
+ 	margin: 0 0 20px; 
+ 	padding: 20px 0 0; 
+
+ 	border: 1px solid #d8d8d8; 
+ 	background: #f9f9f9;
+
+ 	-moz-border-radius: 4px; 
+ 	-webkit-border-radius: 4px; 
+ 	border-radius: 4px; 
+ 	-moz-box-shadow: inset 0 0 0 1px #fff;
+ 	-webkit-box-shadow: inset 0 0 0 1px #fff;
+ 	box-shadow: inset 0 0 0 1px #fff; 
+ }
+
+ .percentage-votes-bar {
+ 	display: table;
+ 	width: 100%;
+ 	height: auto;
+ 	line-height: 12px;
+ 	white-space: nowrap;
+ 	overflow: hidden;
+ 	border-bottom-left-radius: 3px;
+ 	border-bottom-right-radius: 3px;
+ 	background-color:#5bb75b;
+ }
+
+/*
+ .repository-lang-stats-graph .language-color:first-child {
+ 	border-bottom-left-radius: 3px;
+ }
+*/
+ .percentage-votes-bar .percentage-vote {
+ 	height: auto;
+ 	line-height: 12px;
+ 	vertical-align: top;
+ 	display: inline-block;
+ 	text-indent: -9999px;
+ }
+
+ .percentage-votes-values{
+ 	
  }
