@@ -16,8 +16,8 @@
 //= require_tree .
 
 $(function (argument) {
-	$('.idea > .idea-like').click(like);
-	$('.idea > .idea-unlike').click(unlike);
+	$('.idea-like').click(like);
+	$('.idea-unlike').click(unlike);
 
 	$('.percentage-votes-bar').click(function(e) {
 		var box = $(this).prev('.idea-content').find('.percentage-votes-values');
@@ -30,7 +30,42 @@ $(function (argument) {
 		e.preventDefault();
 	});
 
+	$('.idea .idea-content h3 a').click(function (e) {
+		var box = $('#wrapper-full-idea');
+
+		if(box.is(':visible'))
+			box.slideUp();
+		else
+			box.slideDown();
+
+		e.preventDefault();
+	});
+
+	$('.btn-comments').click(function (e) {
+		var box = $('.group-comments');
+
+		if(box.is(':visible'))
+			box.slideUp();
+		else
+			box.slideDown();
+
+		e.preventDefault();
+	});
+
+
 	$('[data-toggle="tooltip"]').tooltip();
+	$('[data-toggle="tooltip"]').hover(function() {
+		//changeTooltipColorTo('#005580');
+	})
+
+	function changeTooltipColorTo(color) {
+    $('.tooltip-inner').css('color', '#fff');
+    $('.tooltip-inner').css('background-color', color)
+    $('.tooltip.top .tooltip-arrow').css('border-top-color', color);
+    $('.tooltip.right .tooltip-arrow').css('border-right-color', color);
+    $('.tooltip.left .tooltip-arrow').css('border-left-color', color);
+    $('.tooltip.bottom .tooltip-arrow').css('border-bottom-color', color);
+}
 
 	function like () {
 		vote('like', getIdeaId(this), voteCallback(this));
@@ -41,7 +76,7 @@ $(function (argument) {
 	}
 
 	function getIdeaId (elment) {
-		return $(elment).parent('.idea').data('idea');
+		return $(elment).parent('#full-idea').data('idea');
 	}
 
 	function voteCallback (elment) {
@@ -54,7 +89,7 @@ $(function (argument) {
 	}
 
 	function disableVoteButtons (elment) {
-		var idea = $(elment).parent('.idea');
+		var idea = $(elment).parents('#full-idea').first();
 
 		$('.idea-like, .idea-unlike', idea)
 		.addClass('disabled')

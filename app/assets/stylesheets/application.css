@@ -12,14 +12,14 @@
  *= require_tree .
  */
 
- #header-main{
+ #header-main {
 
  }
 
- #header-main h2{
+ #header-main h2 {
  	margin-bottom: 0;
  }
- #header-main span{
+ #header-main span {
  	margin-top: 0;
  	font-size: 12px;
  }
@@ -35,19 +35,23 @@
  	-moz-box-shadow: inset 0 0 0 1px #fff;
  	-webkit-box-shadow: inset 0 0 0 1px #fff;
  	box-shadow: inset 0 0 0 1px #fff;
-
  }
- .idea-content{
+
+ .idea-content {
  	padding: 8px;
  	height: 150px;
  	position: relative;
  }
 
+ .idea header {
+ 	min-height: 50px;
+ 	border-bottom: 1px dashed #ccc;
+ 	overflow: hidden;
+ }
+
  .idea h3 {
  	font-size: 15px;
  	line-height: 18px;
- 	min-height: 50px;
- 	border-bottom: 1px dashed #ccc;
  	margin-top: 3px;
  }
 
@@ -57,23 +61,23 @@
  	width: 25px;
  }
 
- .button-thumbs{
- 	float:right;
- 	margin-top: 0.5%;
- 	margin-right: 0.5%;
+ #full-idea .comment {
+ 	color: #000;
+ 	margin: 10px 10%;
+ 	padding: 10px;
+ 	border: 1px solid #ededed;
+ 	background: #f9f9f9;
+ 	-moz-border-radius: 4px;
+ 	-webkit-border-radius: 4px;
+ 	border-radius: 4px;
+ 	-moz-box-shadow: inset 0 0 0 1px #fff;
+ 	-webkit-box-shadow: inset 0 0 0 1px #fff;
+ 	box-shadow: inset 0 0 0 1px #ccc;
  }
 
- .comment{
- 	margin:10px 50px;
- 	border: 1px solid rgb(247, 247, 249);
- 	border-left: 5px solid rgb(225, 225, 232);
- 	border-right: 5px solid rgb(225, 225, 232);
- 	box-shadow: 40px 0px 0px rgb(251, 251, 252) inset, 41px 0px 0px rgb(236, 236, 240) inset;
- }
 
 
-
- .comment .user-img {
+ #full-idea .comment .user-img {
  	float:left;
  	margin:10px;
  	width: 35px;
@@ -90,6 +94,7 @@
 
 
  .group-comments{
+ 	margin-top: 20px;
  	display: none;
  }
 
@@ -174,13 +179,16 @@
  	font-size: 10px;
  }
 
-#full-idea{
-	background: #222;
-	color: #d6d6d6;
-	height: 300px;
-	padding: 10px;
+ #wrapper-full-idea{
+ 	display: none;
+ }
 
-	border: 1px solid #000;
+ #full-idea{
+ 	background: #222;
+ 	color: #d6d6d6;
+ 	padding: 10px;
+
+ 	border: 1px solid #000;
  	-moz-border-radius: 4px;
  	-webkit-border-radius: 4px;
  	border-radius: 4px;
@@ -196,27 +204,84 @@
  	-moz-box-shadow: inset 0 0 0 1px #fff;
  	-webkit-box-shadow: inset 0 0 0 1px #fff;
  	box-shadow: inset 0 0 0 1px #fff;*/
-}
+ }
 
 
-#full-idea h3 {
+ #full-idea header {
  	min-height: 80px;
  	border-bottom: 1px dashed #ccc;
  	color: #fff;
+ 	overflow: hidden;
  }
 
-#full-idea .user-img {
+ #full-idea .user-img {
  	float:left;
  	margin:10px;
  	width: 60px;
  }
 
+ .idea-description{
+ 	padding: 5px 0;
+ 	min-height: 100px;
+ }
 
-#arrow {
-border-bottom: 10px solid rgb(34, 34, 34);
-border-left: 10px solid rgba(0, 0, 0, 0);
-border-right: 10px solid rgba(0, 0, 0, 0);
-height: 0;
-width: 0;
-margin-left: 20px;
-}
+ .do-you-like-bar{
+ 	
+ }
+
+ .do-you-like-bar span {
+ 	color: #fff;
+ 	font-weight: bold;
+ }
+
+
+ #arrow {
+ 	border-bottom: 10px solid rgb(34, 34, 34);
+ 	border-left: 10px solid rgba(0, 0, 0, 0);
+ 	border-right: 10px solid rgba(0, 0, 0, 0);
+ 	height: 0;
+ 	width: 0;
+ 	margin-left: 20px;
+ }
+
+ .btn-comments{
+ 	float: right;
+ 	margin:0 5px;
+ 	font-weight: bold;
+ }
+
+ .btn-comments:hover{
+ 	text-decoration: none;
+ 	color: #fff;
+ }
+
+ .new-comment {
+ 	margin: 10px 15%;
+ 	padding: 10px 0;
+ }
+
+ .new-comment h4{
+ 	color: #fff;
+ }
+
+ .new-comment textarea {
+ 	width: 100%;
+ 	min-height: 75px;
+ }
+
+
+  /*.tooltip-inner{
+  	background-color: #fff; 
+  }
+    .tooltip.top .tooltip-arrow{
+    	border-top-color: #fff; 
+    };
+    .tooltip.right .tooltip-arrow{
+    	border-right-color: #fff; 
+    };
+    .tooltip.left .tooltip-arrow{
+    	border-left-color: #fff; 
+    };
+    .tooltip.bottom .tooltip-arrow{
+    	border-bottom-color: #fff; 
+    };*/
