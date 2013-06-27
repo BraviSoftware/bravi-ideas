@@ -8,16 +8,35 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *
+ *=require twitter-bootstrap-static/bootstrap
+ * #not using 'require_tree' .
+ *
  *= require_self
- *= require_tree .
  */
 
+/*font-family: 'Cabin', sans-serif;
+
+font-family: 'Inconsolata', sans-serif;*/
+
+body{
+	font-family: 'Ubuntu', sans-serif;
+}
  #header-main {
 
  }
 
+ h1, h2, h3, h4{
+	font-family: 'Amaranth', sans-serif;
+}
+
  #header-main h2 {
  	margin-bottom: 0;
+ 	
+ }
+ #header-main a:hover,
+ .idea header a:hover{
+ 	text-decoration: none;
  }
  #header-main span {
  	margin-top: 0;
@@ -49,9 +68,9 @@
  	overflow: hidden;
  }
 
- .idea h3 {
- 	font-size: 15px;
- 	line-height: 18px;
+ .idea header h3 {
+ 	font-size: 18px;
+ 	line-height: 19px;
  	margin-top: 3px;
  }
 

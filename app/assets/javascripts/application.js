@@ -30,7 +30,7 @@ $(function (argument) {
 		e.preventDefault();
 	});
 
-	$('.idea .idea-content h3 a').click(function (e) {
+	$('.idea .idea-content a h3').click(function (e) {
 		var box = $('#wrapper-full-idea');
 
 		if(box.is(':visible'))
@@ -68,15 +68,15 @@ $(function (argument) {
 }
 
 	function like () {
-		vote('like', getIdeaId(this), voteCallback(this));
+		vote('like', getIdeaId(this), voteCallback, this);
 	}
 
 	function unlike () {
-		vote('unlike', getIdeaId(this), voteCallback(this));
+		vote('unlike', getIdeaId(this), voteCallback, this);
 	}
 
 	function getIdeaId (elment) {
-		return $(elment).parent('#full-idea').data('idea');
+		return $(elment).parents('#full-idea').first().data('idea');
 	}
 
 	function voteCallback (elment) {
@@ -97,11 +97,12 @@ $(function (argument) {
 		.off('click');		
 	}
 
-	function vote (type, id, callback) {
+	function vote (type, id, callback, elment) {
 		$.ajax({
 			type    : 'PUT',
-			url     : 'http://localhost:3000/ideas/' + id + '/' + type + '.json',
-			success : callback
+			url     : 'http://localhost:3000/ideas/' + id + '/' + type + '.json'
+		}).done(function(){
+			callback(elment);
 		});
 	}
 });
