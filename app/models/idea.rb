@@ -1,6 +1,6 @@
-class Idea < ActiveRecord::Base
-  has_many: comments
+class Idea < ActiveRecord::Base  
   attr_accessible :created_date, :description, :negative, :positive, :title
+  has_many :comments
 
   before_save :default_values
   def default_values
