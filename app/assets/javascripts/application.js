@@ -16,6 +16,7 @@
 //= require_tree .
 
 $(function (argument) {
+	$('[data-toggle="tooltip"]').tooltip();
 
 	$(document).on('click', '.percentage-votes-bar', function(e) {
 		var box = $(this).prev('.idea-content').find('.percentage-votes-values');

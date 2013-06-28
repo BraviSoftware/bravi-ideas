@@ -20,9 +20,9 @@ var viewModelIdea = (function(){
 
 	disableVoteButtons = function () {
 		$('.idea-like, .idea-unlike', '#full-idea')
-			.addClass('disabled')
-			.prop('disabled', true)
-			.off('click');
+		.addClass('disabled')
+		.prop('disabled', true)
+		.off('click');
 	},
 
 	getAll = function(){
@@ -60,10 +60,26 @@ var viewModelIdea = (function(){
 
 		var box = $('#wrapper-full-idea');
 
-		if(box.is(':visible') && !newItem)
-			box.slideUp();
-		else
-			box.slideDown();
+		if(box.is(':visible') && !newItem){
+			box.fadeOut();
+		}
+		else{
+			positionFullIdeaBox();
+			box.fadeIn();
+
+
+			$(window).on('resize', positionFullIdeaBox);
+
+			function positionFullIdeaBox(){
+				var boxPreview = $('.idea[data-idea="' + selected().id + '"]');
+				var box = $('#wrapper-full-idea');
+				var position = boxPreview.position();
+
+				$('#arrow').css('margin-left', (position.left + 20) + 'px');
+
+				box.css('top', (boxPreview.height() + position.top + 10) + 'px');
+			}
+		}
 	},
 
 

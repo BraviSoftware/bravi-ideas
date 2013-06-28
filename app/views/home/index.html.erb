@@ -1,50 +1,51 @@
+<section id="wrapper-ideas">
+	<div data-bind="foreach: ideasGroupRows">
+		<div class="row-fluid" data-bind="foreach: $data">
 
-<section data-bind="foreach: ideasGroupRows">
-	<div class="row-fluid" data-bind="foreach: $data">
+			<div class="span4">
+				<div class="idea" data-bind="attr: {'data-idea': id, 
+											'data-positive': percentPositive,
+											'data-negative': percentNegative}">
+					<div class="idea-content">
+						<header>
+							<!-- User logo -->
+							<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
+							<!-- Idea content -->
+							<a href="#" data-bind="click: $root.selectIdea"><h3 data-bind="text: title"></h3></a>
+						</header>
 
-		<div class="span4">
-			<div class="idea" data-bind="attr: {'data-idea': id, 
-										'data-positive': percentPositive,
-										'data-negative': percentNegative}">
-				<div class="idea-content">
-					<header>
-						<!-- User logo -->
-						<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
-						<!-- Idea content -->
-						<a href="#" data-bind="click: $root.selectIdea"><h3 data-bind="text: title"></h3></a>
-					</header>
+						<div class="idea-description" data-bind="text: description"></div>
 
-					<div class="idea-description" data-bind="text: description"></div>
-
-					<div class="percentage-votes-values">
-						<ul>
-							<li>
-								<i class="icon-thumbs-down"></i>
-								<span class="amount-vote" data-bind="text: negative"></span>
-								<em class="amount-vote-percentage" data-bind="text: '(' + percentNegative() + '%)'"></em>
-							</li>
-							<li>
-								<i class="icon-thumbs-up"></i>
-								<span class="amount-vote" data-bind="text: positive"></span>
-								<em class="amount-vote-percentage" data-bind="text: '(' + percentPositive() + '%)'"></em>
-							</li>
-						</ul>
+						<div class="percentage-votes-values">
+							<ul>
+								<li>
+									<i class="icon-thumbs-down"></i>
+									<span class="amount-vote" data-bind="text: negative"></span>
+									<em class="amount-vote-percentage" data-bind="text: '(' + percentNegative() + '%)'"></em>
+								</li>
+								<li>
+									<i class="icon-thumbs-up"></i>
+									<span class="amount-vote" data-bind="text: positive"></span>
+									<em class="amount-vote-percentage" data-bind="text: '(' + percentPositive() + '%)'"></em>
+								</li>
+							</ul>
+						</div>
 					</div>
+					<a href="#" class="percentage-votes-bar">
+						<span class="percentage-vote btn-danger"
+								data-toggle="tooltip" 
+							 	data-placement="bottom"
+							 	data-bind="text: percentNegative, 
+							 				attr: {'data-original-title': percentNegative() + '%'},
+							 				style: {'width': percentNegative() + '%'}"></span>
+						<span class="percentage-vote btn-success"
+								data-toggle="tooltip" 
+							 	data-placement="bottom" 
+							 	data-bind="text: percentPositive, 
+							 				attr: {'data-original-title': percentPositive() + '%'},
+							 				style: {'width': percentPositive() + '%'}"></span>
+					</a>
 				</div>
-				<a href="#" class="percentage-votes-bar">
-					<span class="percentage-vote btn-danger"
-							data-toggle="tooltip" 
-						 	data-placement="bottom"
-						 	data-bind="text: percentNegative, 
-						 				attr: {'data-original-title': percentNegative() + '%'},
-						 				style: {'width': percentNegative() + '%'}"></span>
-					<span class="percentage-vote btn-success"
-							data-toggle="tooltip" 
-						 	data-placement="bottom" 
-						 	data-bind="text: percentPositive, 
-						 				attr: {'data-original-title': percentPositive() + '%'},
-						 				style: {'width': percentPositive() + '%'}"></span>
-				</a>
 			</div>
 		</div>
 	</div>
