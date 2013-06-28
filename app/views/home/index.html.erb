@@ -1,86 +1,88 @@
 
-<% @ideas.each_with_index do |idea, index| %>
-	<% if (index == 0) || ((index) % 3 == 0) %>
-	<div class="row-fluid">
-	<% end %>
+<section data-bind="foreach: ideasGroupRows">
+	<div class="row-fluid" data-bind="foreach: $data">
 
-	<div class="span4">
-		<div class="idea" data-idea="<%= idea.id %>" data-positive="<%= idea.percentPositive() %>" data-negative="<%= idea.percentNegative() %>">
-			<div class="idea-content">
-				<header>
-					<!-- User logo -->
-					<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
-					<!-- Idea content -->
-					<a href="#"><h3><%= idea.title %></h3></a>
-				</header>
+		<div class="span4">
+			<div class="idea" data-bind="attr: {'data-idea': id, 
+										'data-positive': $root.percentPositive($data),
+										'data-negative': $root.percentNegative($data)}">
+				<div class="idea-content">
+					<header>
+						<!-- User logo -->
+						<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
+						<!-- Idea content -->
+						<a href="#" data-bind="click: $root.selectIdea"><h3 data-bind="text: title"></h3></a>
+					</header>
 
-				<p><%= idea.description %></p>
+					<div class="idea-description" data-bind="text: description"></div>
 
-				<div class="percentage-votes-values">
-					<ul>
-						<li>
-							<i class="icon-thumbs-down"></i>
-							<span class="amount-vote"><%= idea.negative %></span>
-							<em class="amount-vote-percentage">(<%= idea.percentNegative() %>%)</em>
-						</li>
-						<li>
-							<i class="icon-thumbs-up"></i>
-							<span class="amount-vote"><%= idea.positive %></span>
-							<em class="amount-vote-percentage">(<%= idea.percentPositive() %>%)</em>
-						</li>
-					</ul>
+					<div class="percentage-votes-values">
+						<ul>
+							<li>
+								<i class="icon-thumbs-down"></i>
+								<span class="amount-vote" data-bind="text: negative"></span>
+								<em class="amount-vote-percentage" data-bind="text: '(' + $root.percentNegative($data) + '%)'"></em>
+							</li>
+							<li>
+								<i class="icon-thumbs-up"></i>
+								<span class="amount-vote" data-bind="text: positive"></span>
+								<em class="amount-vote-percentage" data-bind="text: '(' + $root.percentPositive($data) + '%)'"></em>
+							</li>
+						</ul>
+					</div>
 				</div>
+				<a href="#" class="percentage-votes-bar">
+					<span class="percentage-vote btn-danger"
+							data-toggle="tooltip" 
+						 	data-placement="bottom"
+						 	data-bind="text: $root.percentNegative($data), 
+						 				attr: {'data-original-title': $root.percentNegative($data) + '%'},
+						 				style: {'width': $root.percentNegative($data) + '%'}"></span>
+					<span class="percentage-vote btn-success"
+							data-toggle="tooltip" 
+						 	data-placement="bottom" 
+						 	data-bind="text: $root.percentPositive($data), 
+						 				attr: {'data-original-title': $root.percentPositive($data) + '%'},
+						 				style: {'width': $root.percentPositive($data) + '%'}"></span>
+				</a>
 			</div>
-			<a href="#" class="percentage-votes-bar">
-				<span class="percentage-vote btn-danger" style="width:<%= idea.percentNegative() %>%;" 
-						data-toggle="tooltip" 
-					 	data-placement="bottom" 
-					 	data-original-title="<%= idea.percentNegative() %>%">
-					<%= idea.percentNegative() %>
-				</span>
-				<span class="percentage-vote btn-success" style="width:<%= idea.percentPositive() %>%;" 
-						data-toggle="tooltip" 
-					 	data-placement="bottom" 
-					 	data-original-title="<%= idea.percentPositive() %>%">
-					<%= idea.percentPositive() %>
-				</span>
-			</a>
 		</div>
+
 	</div>
 
-	<% if (index == @ideas.size - 1 ) || ((index + 1) % 3 == 0) %>
-	</div>
-	<div id="wrapper-full-idea">
+	<div id="wrapper-full-idea" data-bind="with: $root.selected">
 		<div id="arrow"></div>
-		<div id="full-idea" data-idea="<%= idea.id %>">
+		<div id="full-idea" data-bind="attr: {'data-idea': id }">
 			<header>
 				<!-- User logo -->
 				<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
 				<!-- Idea content -->
-				<h3><%= idea.title %></h3>
+				<h3 data-bind="text: title"></h3>
 			</header>
 
-			<div class="idea-description"><%= idea.description %></div>
+			<div class="idea-description" data-bind="text: description"></div>
 
 			
 			<div class="do-you-like-bar">
 				<span>Do you like?</span>
 
 				<!-- Buttons thumbs -->
-				<a class="idea-like btn btn-success button-thumbs" href="#"
+				<button type="button" class="idea-like btn btn-success"
+					data-bind="click: $root.like"
 					data-toggle="tooltip" 
 					data-placement="bottom" 
 					data-original-title="Yep, nice idea!">
-					<i class="icon-thumbs-up"> <%= idea.positive %></i>
-				</a>
-				<a class="idea-unlike btn btn-danger button-thumbs" href="#"
+					<i class="icon-thumbs-up" data-bind="text: positive"></i>
+				</button>
+				<button type="button" class="idea-unlike btn btn-danger"
+					data-bind="click: $root.unlike"
 					data-toggle="tooltip" 
 					data-placement="bottom" 
 					data-original-title="Nope, bad idea!">
-					<i class="icon-thumbs-down"> <%= idea.negative %></i>
-				</a>
+					<i class="icon-thumbs-down" data-bind="text: negative"></i>
+				</button>
 
-				<a href="" class="btn-comments"
+				<a href="#" class="btn-comments"
 					data-toggle="tooltip" 
 					data-placement="bottom" 
 					data-original-title="I would like comment about it.">
@@ -119,5 +121,4 @@
 			</div>
 		</div>
 	</div>
-	<% end %>
-<% end %>
+</section>
