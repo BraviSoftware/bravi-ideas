@@ -18,6 +18,9 @@
 <%= f.label :description %>
 <%= f.text_area :description, :class => 'input-xxlarge', :rows => '10' %>
 
+
+<% if @idea.id != nil %>
+
 <div class="row">
   <div class="span2">
     <%= f.label :positive %>
@@ -31,6 +34,8 @@
 
 <%= f.label :created_date %>
 <%= f.text_field :created_date, :disabled => true %>
+
+<% end %>
 
 <div class="form-actions">
   <%= f.submit :class => 'btn btn-primary' %>
