@@ -2,33 +2,27 @@ var viewModelIdea = (function(){
 	var ideas = ko.observableArray([]),
 
 	like = function () {
-		vote('like', getIdeaId(this), voteCallback, this);
+		vote('like', voteCallback, this);
 	},
 
 	unlike = function () {
-		vote('unlike', getIdeaId(this), voteCallback, this);
+		vote('unlike', voteCallback, this);
 	},
 
 	getIdeaId = function (elment) {
-		return $(elment).parents('#full-idea').first().data('idea');
+		return selected() && selected().id;
 	},
 
-	voteCallback = function (elment) {
-		var labelTotal = $(elment).find('i');
-
-		var voteTotal = parseInt(labelTotal.text());
-		labelTotal.text(' ' + (voteTotal + 1));
-
-		disableVoteButtons(elment);
+	voteCallback = function (voteType, idea) {
+		idea.vote(voteType);
+		disableVoteButtons();
 	},
 
-	disableVoteButtons = function (elment) {
-		var idea = $(elment).parents('#full-idea').first();
-
-		$('.idea-like, .idea-unlike', idea)
-		.addClass('disabled')
-		.prop('disabled', true)
-		.off('click');		
+	disableVoteButtons = function () {
+		$('.idea-like, .idea-unlike', '#full-idea')
+			.addClass('disabled')
+			.prop('disabled', true)
+			.off('click');
 	},
 
 	getAll = function(){
@@ -36,40 +30,27 @@ var viewModelIdea = (function(){
 			type    : 'GET',
 			url     : '/home/index.json'
 		}).done(function(data){
+			mapToModel(data);
 			ideas(data);
 		});
+
+		function mapToModel(items){
+			for(var i = 0; i < items.length; i++){
+				// override dto for a proper model
+				items[i] = new IdeaModel(items[i]);				
+			};
+		}
 	},
 
-	vote = function (type, id, callback, elment) {
+	vote = function (type, callback, idea) {
 		$.ajax({
 			type    : 'PUT',
-			url     : '/ideas/' + id + '/' + type + '.json'
+			url     : '/ideas/' + idea.id + '/' + type + '.json'
 		}).done(function(){
-			callback(elment);
+			callback(type, idea);
 		});
 	},
 
-	getTotal = function(item){
-		return item.positive + item.negative
-	},
-
-	percentPositive = function(item){
-
-		if (getTotal(item) === 0){
-			return 50;
-		}
-
-		return (item.positive * 100 ) / getTotal(item);
-	},
-
-	percentNegative = function(item){
-
-		if (getTotal(item) === 0){
-			return 50;
-		}
-
-		return (item.negative * 100 ) / getTotal(item);
-	},
 
 	selected = ko.observable(),
 	selectIdea = function(item){
@@ -115,8 +96,6 @@ var viewModelIdea = (function(){
 		voteCallback: voteCallback,
 		disableVoteButtons: disableVoteButtons,
 		vote : vote,
-		percentPositive: percentPositive,
-		percentNegative: percentNegative,
 		ideasGroupRows: ideasGroupRows,
 		selected: selected,
 		selectIdea: selectIdea,

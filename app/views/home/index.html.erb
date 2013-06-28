@@ -4,8 +4,8 @@
 
 		<div class="span4">
 			<div class="idea" data-bind="attr: {'data-idea': id, 
-										'data-positive': $root.percentPositive($data),
-										'data-negative': $root.percentNegative($data)}">
+										'data-positive': percentPositive,
+										'data-negative': percentNegative}">
 				<div class="idea-content">
 					<header>
 						<!-- User logo -->
@@ -21,12 +21,12 @@
 							<li>
 								<i class="icon-thumbs-down"></i>
 								<span class="amount-vote" data-bind="text: negative"></span>
-								<em class="amount-vote-percentage" data-bind="text: '(' + $root.percentNegative($data) + '%)'"></em>
+								<em class="amount-vote-percentage" data-bind="text: '(' + percentNegative() + '%)'"></em>
 							</li>
 							<li>
 								<i class="icon-thumbs-up"></i>
 								<span class="amount-vote" data-bind="text: positive"></span>
-								<em class="amount-vote-percentage" data-bind="text: '(' + $root.percentPositive($data) + '%)'"></em>
+								<em class="amount-vote-percentage" data-bind="text: '(' + percentPositive() + '%)'"></em>
 							</li>
 						</ul>
 					</div>
@@ -35,19 +35,18 @@
 					<span class="percentage-vote btn-danger"
 							data-toggle="tooltip" 
 						 	data-placement="bottom"
-						 	data-bind="text: $root.percentNegative($data), 
-						 				attr: {'data-original-title': $root.percentNegative($data) + '%'},
-						 				style: {'width': $root.percentNegative($data) + '%'}"></span>
+						 	data-bind="text: percentNegative, 
+						 				attr: {'data-original-title': percentNegative() + '%'},
+						 				style: {'width': percentNegative() + '%'}"></span>
 					<span class="percentage-vote btn-success"
 							data-toggle="tooltip" 
 						 	data-placement="bottom" 
-						 	data-bind="text: $root.percentPositive($data), 
-						 				attr: {'data-original-title': $root.percentPositive($data) + '%'},
-						 				style: {'width': $root.percentPositive($data) + '%'}"></span>
+						 	data-bind="text: percentPositive, 
+						 				attr: {'data-original-title': percentPositive() + '%'},
+						 				style: {'width': percentPositive() + '%'}"></span>
 				</a>
 			</div>
 		</div>
-
 	</div>
 
 	<div id="wrapper-full-idea" data-bind="with: $root.selected">
