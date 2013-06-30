@@ -10,20 +10,29 @@
 </head>
 <body>
 	<div class="container">
+		
 		<header id="header-main">
 			<div class="masthead">
 				<ul class="nav nav-pills pull-right">
 					<li class="active"><a href="/">All Ideas</a></li>
 					<li><a href="/ideas">My Ideas</a></li>
 				</ul>
-				<!-- <h3 class="muted">Bravi Ideas</h3> -->
 
 				<%= link_to(root_path) do %>
 				<h2>Bravi <i class="icon-lightbulb icon-1x"></i>deas</h2>				
 				<% end %>			
 				<span>Share your ideas. You could change the world.</span>
 			</div>
+			<div id="user_nav">
+			<% if current_user %>
+			Signed in as <strong><%= current_user.name %></strong>!
+			<%= link_to "Sign out", signout_path, id: "sign_out", class: "btn btn-link" %>
+			<% else %>
+			<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: "btn btn-link" %>
+			<% end %>
+		</div>
 		</header> 
+
 
 		<%= yield %>
 		

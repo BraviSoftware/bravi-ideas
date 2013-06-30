@@ -294,18 +294,7 @@ h1, h2, h3, h4{
  }
 
 
-  /*.tooltip-inner{
-  	background-color: #fff; 
-  }
-    .tooltip.top .tooltip-arrow{
-    	border-top-color: #fff; 
-    };
-    .tooltip.right .tooltip-arrow{
-    	border-right-color: #fff; 
-    };
-    .tooltip.left .tooltip-arrow{
-    	border-left-color: #fff; 
-    };
-    .tooltip.bottom .tooltip-arrow{
-    	border-bottom-color: #fff; 
-    };*/
+#user_nav{
+  text-align: right;
+  border-bottom:1px dashed #ededed;
+}
