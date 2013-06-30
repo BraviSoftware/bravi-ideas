@@ -12,5 +12,4 @@ class User < ActiveRecord::Base
 	    user.save!
 	  end
 	end
->>>>>>> Configured authentication by Facebook
 end
