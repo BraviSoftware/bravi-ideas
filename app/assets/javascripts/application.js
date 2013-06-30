@@ -15,9 +15,8 @@
 //= require twitter/bootstrap
 //= require_tree .
 
-$(function (argument) {
-	$('[data-toggle="tooltip"]').tooltip();
-
+$(function () {
+	
 	$(document).on('click', '.percentage-votes-bar', function(e) {
 		var box = $(this).prev('.idea-content').find('.percentage-votes-values');
 
@@ -39,5 +38,9 @@ $(function (argument) {
 			box.slideDown();
 
 		e.preventDefault();
-	});		
+	});
+
+	setTimeout(function(){
+		$('[data-toggle="tooltip"]').tooltip();	
+	}, 250);
 });

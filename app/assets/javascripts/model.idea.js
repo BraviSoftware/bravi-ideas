@@ -18,7 +18,7 @@ var IdeaModel = (function (dto) {
 			return 50;
 		}
 
-		return (self.positive() * 100 ) / self.getTotal();
+		return ((self.positive() * 100 ) / self.getTotal()).toFixed(2);
 	});
 
 	self.percentNegative = ko.computed(function(){
@@ -27,7 +27,7 @@ var IdeaModel = (function (dto) {
 			return 50;
 		}
 
-		return (self.negative() * 100 ) / self.getTotal();
+		return ((self.negative() * 100 ) / self.getTotal()).toFixed(2);
 	});
 
 	self.vote = function(voteType){
