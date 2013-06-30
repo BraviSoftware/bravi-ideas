@@ -1,8 +1,10 @@
 BraviIdeas::Application.routes.draw do
+  # Auth
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
 
+  # Ideas
   resources :ideas do
     member do
       put :like
@@ -10,7 +12,11 @@ BraviIdeas::Application.routes.draw do
     end
   end
 
+  # Home
   get "home/index"
+  get "home/ideas"
+  get "home/comments"
+  post "home/add_comment"
   
   root :to => "home#index"
 

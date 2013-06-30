@@ -28,7 +28,7 @@ var viewModelIdea = (function(){
 	getAll = function(){
 		$.ajax({
 			type    : 'GET',
-			url     : '/home/index.json'
+			url     : '/home/ideas.json'
 		}).done(function(data){
 			mapToModel(data);
 			ideas(data);
