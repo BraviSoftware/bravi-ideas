@@ -299,3 +299,8 @@ h1, h2, h3, h4{
   text-align: right;
   border-bottom:1px dashed #ededed;
 }
+
+ul.nav{
+  margin-top: 10px;
+  margin-bottom: 0;
+}
