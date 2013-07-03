@@ -67,14 +67,14 @@
 
 				<!-- Buttons thumbs -->
 				<button type="button" class="idea-like btn btn-success"
-					data-bind="click: $root.like, tooltip: true"
+					data-bind="click: $root.like, tooltip: true, enable: $root.canVote"
 					data-toggle="tooltip" 
 					data-placement="bottom" 
 					data-original-title="Yep, nice idea!">
 					<i class="icon-thumbs-up" data-bind="text: positive"></i>
 				</button>
 				<button type="button" class="idea-unlike btn btn-danger"
-					data-bind="click: $root.unlike, tooltip: true"
+					data-bind="click: $root.unlike, tooltip: true, enable: $root.canVote"
 					data-toggle="tooltip" 
 					data-placement="bottom" 
 					data-original-title="Nope, bad idea!">

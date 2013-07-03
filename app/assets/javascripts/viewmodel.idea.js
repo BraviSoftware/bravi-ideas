@@ -4,6 +4,14 @@ BraviIdeas.ViewModelIdea = (function(){
 	comments = ko.observableArray([]),
 	comment = ko.observable(),
 
+	isUserAuthenticated = function(){
+		return $('#user').data('id');
+	},
+
+	canVote = ko.computed(function(){
+		return isUserAuthenticated();
+	}),
+
 	like = function () {
 		vote('like', voteCallback, this);
 	},
@@ -175,6 +183,7 @@ BraviIdeas.ViewModelIdea = (function(){
 	};
 
 	var vm = {
+		canVote: canVote,
 		ideas: ideas,
 		comments: comments,
 		comment: comment,
