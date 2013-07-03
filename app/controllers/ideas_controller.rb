@@ -1,8 +1,22 @@
 class IdeasController < ApplicationController
+  before_filter :check_permissions#, :only => [:index]
+
+  rescue_from SecurityError do |exception|
+    flash[:error] = exception.message
+    redirect_to current_user || root_path
+  end
+
+  def check_permissions
+    unless current_user
+      raise SecurityError, "You have no permissions to access this page"
+    end
+  end
+
+
   # GET /ideas
   # GET /ideas.json
   def index
-    @ideas = Idea.all
+    @ideas = Idea.where(user_id: session[:user_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +27,7 @@ class IdeasController < ApplicationController
   # GET /ideas/1
   # GET /ideas/1.json
   def show
-    @idea = Idea.find(params[:id])
+    @idea = Idea.find_by_id_and_user_id(params[:id], session[:user_id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -56,7 +70,7 @@ class IdeasController < ApplicationController
   # PUT /ideas/1
   # PUT /ideas/1.json
   def update
-    @idea = Idea.find(params[:id])
+    @idea = Idea.find_by_id_and_user_id(params[:id], session[:user_id])
 
     respond_to do |format|
       if @idea.update_attributes(params[:idea])

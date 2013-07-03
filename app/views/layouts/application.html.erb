@@ -15,7 +15,9 @@
 			<div class="masthead">
 				<ul class="nav nav-pills pull-right">
 					<li class="active"><a href="/">All Ideas</a></li>
+					<% if current_user %>
 					<li><a href="/ideas">My Ideas</a></li>
+					<% end %>
 				</ul>
 
 				<%= link_to(root_path) do %>
