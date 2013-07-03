@@ -201,8 +201,18 @@ h1, h2, h3, h4{
 }
 
 #wrapper-ideas{
-    position: relative;
+  position: relative;
+  min-height: 100px;
 }
+
+#group-ideas{
+  display: none;
+}
+
+.load-completed #group-ideas{
+  display: block;
+}
+
 #wrapper-full-idea{
   display: none;
   position: absolute;

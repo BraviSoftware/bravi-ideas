@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703022636) do
+ActiveRecord::Schema.define(:version => 20130703175909) do
 
   create_table "comments", :force => true do |t|
     t.text     "description"
@@ -48,5 +48,16 @@ ActiveRecord::Schema.define(:version => 20130703022636) do
     t.datetime "oauth_expires_at"
     t.string   "image"
   end
+
+  create_table "votes", :force => true do |t|
+    t.boolean  "like"
+    t.integer  "user_id"
+    t.integer  "idea_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "votes", ["idea_id"], :name => "index_votes_on_idea_id"
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end

@@ -3,13 +3,20 @@ BraviIdeas.ViewModelIdea = (function(){
 	var ideas = ko.observableArray([]),
 	comments = ko.observableArray([]),
 	comment = ko.observable(),
+	selected = ko.observable(),
+
+	ideasLoadCompleted = ko.observable(),
+
+	currentUserId = function (){
+		return parseInt($('#user').data('id'), 10);
+	},
 
 	isUserAuthenticated = function(){
-		return $('#user').data('id');
+		return currentUserId() && currentUserId() > 0;
 	},
 
 	canVote = ko.computed(function(){
-		return isUserAuthenticated();
+		return isUserAuthenticated() && selected() && !selected().current_user_has_voted;
 	}),
 
 	like = function () {
@@ -43,6 +50,8 @@ BraviIdeas.ViewModelIdea = (function(){
 		}).done(function(data){
 			mapToModel(data);
 			ideas(data);
+
+			ideasLoadCompleted(true);
 		});
 
 		function mapToModel(items){
@@ -77,6 +86,10 @@ BraviIdeas.ViewModelIdea = (function(){
 			url     : '/ideas/' + idea.id + '/' + type + '.json'
 		}).done(function(){
 			callback(type, idea);
+
+			selected().current_user_has_voted = currentUserId();
+		}).fail(function(){
+			toastr.warning('<strong>Really, again?!</strong><br>You alredy voted on it.');
 		});
 	},
 
@@ -126,8 +139,7 @@ BraviIdeas.ViewModelIdea = (function(){
 			toastr.success('Successfully removed.');
 		}
 	},
-
-	selected = ko.observable(),
+	
 	selectIdea = function(item){
 		var newItem = !selected() || (item.id !== selected().id);
 
@@ -183,6 +195,7 @@ BraviIdeas.ViewModelIdea = (function(){
 	};
 
 	var vm = {
+		ideasLoadCompleted: ideasLoadCompleted,
 		canVote: canVote,
 		ideas: ideas,
 		comments: comments,

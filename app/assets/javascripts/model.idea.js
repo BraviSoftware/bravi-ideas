@@ -9,6 +9,7 @@ BraviIdeas.IdeaModel = (function (dto) {
 	self.positive = ko.observable(dto.positive);
 	self.negative = ko.observable(dto.negative);
 	self.user_image = dto.user_image;
+	self.current_user_has_voted = (dto.current_user_id_voted && dto.current_user_id_voted > 0);
 
 	self.getTotal = function(){
 		return self.positive() + self.negative();

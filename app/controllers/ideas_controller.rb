@@ -99,12 +99,18 @@ class IdeasController < ApplicationController
 
   # PUT /ideas/1/like
   def like
-    @idea = Idea.find(params[:id])
-    
-    @idea.like()
+    @previousVote = Vote.find_by_idea_id_and_user_id(params[:id], session[:user_id])
+    if @previousVote.blank?
+      @idea = Idea.find(params[:id])
+      @idea.like()
+
+      @vote = Vote.new like: true, user_id: session[:user_id], idea_id: params[:id]
+    end
 
     respond_to do |format|
-      if @idea.update_attribute :positive, @idea.positive
+      if @previousVote.present?
+        format.json { render json: @previousVote, status: :bad_request }
+      elsif @idea.update_attribute :positive, @idea.positive && @vote.save
         format.json { head :no_content }
       else
         format.json { render json: @idea.errors, status: :unprocessable_entity }
@@ -114,12 +120,18 @@ class IdeasController < ApplicationController
 
   # PUT /ideas/1/unlike
   def unlike
-    @idea = Idea.find(params[:id])
-    
-    @idea.unlike()
+    @previousVote = Vote.find_by_idea_id_and_user_id(params[:id], session[:user_id])
+    if @previousVote.blank?
+      @idea = Idea.find(params[:id])
+      @idea.unlike()
+
+      @vote = Vote.new like: false, user_id: session[:user_id], idea_id: params[:id]
+    end
 
     respond_to do |format|
-      if @idea.update_attribute :negative, @idea.negative
+      if @previousVote.present?
+        format.json { render json: @previousVote, status: :bad_request }
+      elsif @idea.update_attribute :negative, @idea.negative && @vote.save
         format.json { head :no_content }
       else
         format.json { render json: @idea.errors, status: :unprocessable_entity }
