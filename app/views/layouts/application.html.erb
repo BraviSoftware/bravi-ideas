@@ -14,9 +14,13 @@
 		<header id="header-main">
 			<div class="masthead">
 				<ul class="nav nav-pills pull-right">
-					<li class="active"><a href="/">All Ideas</a></li>
+					<li <%= cp(root_path) %>>
+						<%= link_to 'All Ideas', root_path %>
+					</li>
 					<% if current_user %>
-					<li><a href="/ideas">My Ideas</a></li>
+					<li <%= cp(ideas_path) %>>
+						<%= link_to 'My Ideas', ideas_path %>
+					</li>
 					<% end %>
 				</ul>
 
