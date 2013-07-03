@@ -1,7 +1,6 @@
 <section id="wrapper-ideas">
 	<div data-bind="foreach: ideasGroupRows">
 		<div class="row-fluid" data-bind="foreach: $data">
-
 			<div class="span4">
 				<div class="idea" data-bind="attr: {'data-idea': id, 
 											'data-positive': percentPositive,
@@ -9,7 +8,7 @@
 					<div class="idea-content">
 						<header>
 							<!-- User logo -->
-							<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
+							<img class="img-polaroid user-img" data-bind="attr: {src: user_image}" />
 							<!-- Idea content -->
 							<a href="#" data-bind="click: $root.selectIdea"><h3 data-bind="text: title"></h3></a>
 						</header>
@@ -35,13 +34,13 @@
 						<span class="percentage-vote btn-danger"
 								data-toggle="tooltip" 
 							 	data-placement="bottom"
-							 	data-bind="text: percentNegative, 
+							 	data-bind="text: percentNegative, tooltip: true,
 							 				attr: {'data-original-title': percentNegative() + '%'},
 							 				style: {'width': percentNegative() + '%'}"></span>
 						<span class="percentage-vote btn-success"
 								data-toggle="tooltip" 
 							 	data-placement="bottom" 
-							 	data-bind="text: percentPositive, 
+							 	data-bind="text: percentPositive, tooltip: true,
 							 				attr: {'data-original-title': percentPositive() + '%'},
 							 				style: {'width': percentPositive() + '%'}"></span>
 					</a>
@@ -55,7 +54,7 @@
 		<div id="full-idea" data-bind="attr: {'data-idea': id }">
 			<header>
 				<!-- User logo -->
-				<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
+				<img class="img-polaroid user-img" data-bind="attr: {src: user_image}" />
 				<!-- Idea content -->
 				<h3 data-bind="text: title"></h3>
 			</header>
@@ -68,14 +67,14 @@
 
 				<!-- Buttons thumbs -->
 				<button type="button" class="idea-like btn btn-success"
-					data-bind="click: $root.like"
+					data-bind="click: $root.like, tooltip: true"
 					data-toggle="tooltip" 
 					data-placement="bottom" 
 					data-original-title="Yep, nice idea!">
 					<i class="icon-thumbs-up" data-bind="text: positive"></i>
 				</button>
 				<button type="button" class="idea-unlike btn btn-danger"
-					data-bind="click: $root.unlike"
+					data-bind="click: $root.unlike, tooltip: true"
 					data-toggle="tooltip" 
 					data-placement="bottom" 
 					data-original-title="Nope, bad idea!">
@@ -83,6 +82,7 @@
 				</button>
 
 				<a href="#" class="btn-comments"
+					data-bind="tooltip: true"
 					data-toggle="tooltip" 
 					data-placement="bottom" 
 					data-original-title="I would like comment about it.">
@@ -91,33 +91,29 @@
 			</div>
 
 			<div class="group-comments">
-				<div class="comment">
-					<!-- <a class="btn btn-success btn-mini button-thumbs disabled" href="#" disabled>
-						<i class="icon-thumbs-up"></i>
-					</a> -->
-					<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
-					<p>I liked. We should try it.</p>
-					<div class="clear"></div>
+
+				<div id="comments" data-bind="foreach: $root.comments">
+					<div class="comment">
+						<button type="button" class="close" 
+								data-toggle="tooltip" 
+							 	data-placement="bottom" 
+							 	data-original-title="remove"
+								data-bind="click: $root.removeComment, visible: belongsToCurrentUser(), tooltip: true">×</button>
+						<img class="img-polaroid user-img"  data-bind="attr: {src: user_image}" />
+						<p data-bind="text: description"></p>
+						<div class="clear"></div>
+					</div>
 				</div>
-
-
-				<div class="comment">
-					<!-- <a class="btn btn-danger btn-mini button-thumbs disabled" href="#" disabled>
-						<i class="icon-thumbs-down"></i>
-					</a> -->
-					<img class="img-polaroid user-img"  src="http://gravatar.com/avatar/2d62e386c079f824fe7f0c8e8e83128b?s=140" />
-					<p>I don't know. Japanese is too hard.</p>
-					<div class="clear"></div>
-				</div>
-
+				
 				<div class="new-comment">
 					<h4>What do you think?</h4>
-					<textarea placeholder="I think..."></textarea>
-					<br>
-					<a class="idea-unlike btn btn-primary btn-small" href="#">
+					<textarea placeholder="I think..." data-bind="value: $root.comment"></textarea>
+					<br>						
+					<button type="button" class="btn btn-primary btn-small" data-bind="click: $root.addComment">
 						<i class="icon-comment-alt"> Comment</i>
-					</a>
+					</button>
 				</div>
+
 			</div>
 		</div>
 	</div>

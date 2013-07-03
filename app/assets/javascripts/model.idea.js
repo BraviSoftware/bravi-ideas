@@ -1,4 +1,5 @@
-var IdeaModel = (function (dto) {
+var BraviIdeas = BraviIdeas || {};
+BraviIdeas.IdeaModel = (function (dto) {
 	var self = this;
 
 	self.id = dto.id;
@@ -7,6 +8,7 @@ var IdeaModel = (function (dto) {
 	self.title = dto.title;
 	self.positive = ko.observable(dto.positive);
 	self.negative = ko.observable(dto.negative);
+	self.user_image = dto.user_image;
 
 	self.getTotal = function(){
 		return self.positive() + self.negative();

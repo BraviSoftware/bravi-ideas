@@ -1,5 +1,8 @@
-var viewModelIdea = (function(){
+var BraviIdeas = BraviIdeas || {};
+BraviIdeas.ViewModelIdea = (function(){
 	var ideas = ko.observableArray([]),
+	comments = ko.observableArray([]),
+	comment = ko.observable(),
 
 	like = function () {
 		vote('like', voteCallback, this);
@@ -37,7 +40,25 @@ var viewModelIdea = (function(){
 		function mapToModel(items){
 			for(var i = 0; i < items.length; i++){
 				// override dto for a proper model
-				items[i] = new IdeaModel(items[i]);				
+				items[i] = new BraviIdeas.IdeaModel(items[i]);				
+			};
+		}
+	},
+
+	getComments = function(idea, callback){
+		$.ajax({
+			type    : 'GET',
+			url     : '/home/comments/' + idea + '.json'
+		}).done(function(data){
+			mapToModel(data);
+			comments(data);
+			callback();
+		});
+
+		function mapToModel(items){
+			for(var i = 0; i < items.length; i++){
+				// override dto for a proper model
+				items[i] = new BraviIdeas.CommentModel(items[i]);				
 			};
 		}
 	},
@@ -51,6 +72,52 @@ var viewModelIdea = (function(){
 		});
 	},
 
+	saveNewComment = function (description, idea) {
+		return $.ajax({
+			type    : 'POST',
+			data 	: { 'description': description, 'idea_id':  idea },
+			url     : '/home/add_comment.json',
+			dataType : 'json'
+		});
+	},
+
+	addComment = function(){
+		if(!comment()){
+			toastr.warning('<strong>Really?!</strong><br>Commenting without a text?! Don\'t do that.');
+			return;
+		}
+
+		$.when(saveNewComment(comment(), selected().id))
+		.done(function(data){
+			var model = new BraviIdeas.CommentModel(data);
+			comments.push(model);
+			comment('');
+			toastr.success('Successfully saved.');
+		});
+	},
+
+	deleteComment = function (comment) {
+		return $.ajax({
+			type    : 'DELETE',
+			url     : '/home/remove_comment/' + comment.id + '.json'
+		});
+	},
+
+	removeComment = function(){
+		var commentToDelete = this;
+		$.when(deleteComment(commentToDelete)).done(completed);
+		
+		function completed(){
+			for (var i = 0; i < comments().length; i++) {
+				if(comments()[i].id === commentToDelete.id){
+					comments.splice(i, 1);
+					break;
+				}
+			};
+
+			toastr.success('Successfully removed.');
+		}
+	},
 
 	selected = ko.observable(),
 	selectIdea = function(item){
@@ -64,21 +131,24 @@ var viewModelIdea = (function(){
 			box.fadeOut();
 		}
 		else{
-			positionFullIdeaBox();
-			box.fadeIn();
+			getComments(selected().id, completed);
 
+			function completed(){
+				positionFullIdeaBox();
+				box.fadeIn();
 
-			$(window).on('resize', positionFullIdeaBox);
+				$(window).on('resize', positionFullIdeaBox);
 
-			function positionFullIdeaBox(){
-				var boxPreview = $('.idea[data-idea="' + selected().id + '"]');
-				var box = $('#wrapper-full-idea');
-				var position = boxPreview.position();
+				function positionFullIdeaBox(){
+					var boxPreview = $('.idea[data-idea="' + selected().id + '"]');
+					var box = $('#wrapper-full-idea');
+					var position = boxPreview.position();
 
-				$('#arrow').css('margin-left', (position.left + 20) + 'px');
+					$('#arrow').css('margin-left', (position.left + 20) + 'px');
 
-				box.css('top', (boxPreview.height() + position.top + 10) + 'px');
-			}
+					box.css('top', (boxPreview.height() + position.top + 10) + 'px');
+				}
+			};
 		}
 	},
 
@@ -106,15 +176,18 @@ var viewModelIdea = (function(){
 
 	var vm = {
 		ideas: ideas,
+		comments: comments,
+		comment: comment,
 		like: like,
 		unlike: unlike,
 		getIdeaId: getIdeaId,
 		voteCallback: voteCallback,
 		disableVoteButtons: disableVoteButtons,
-		vote : vote,
 		ideasGroupRows: ideasGroupRows,
+		addComment: addComment,
+		removeComment: removeComment,
 		selected: selected,
-		selectIdea: selectIdea,
+		selectIdea: selectIdea
 	};
 
 	init();
@@ -123,4 +196,4 @@ var viewModelIdea = (function(){
 });
 
 // Bind to view
-ko.applyBindings(new viewModelIdea());
+ko.applyBindings(new BraviIdeas.ViewModelIdea());

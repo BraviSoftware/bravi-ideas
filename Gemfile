@@ -54,3 +54,4 @@ gem 'better_errors'
 # gem 'debugger'
 
 gem 'omniauth-facebook', '1.4.0'
+gem 'toastr-rails'

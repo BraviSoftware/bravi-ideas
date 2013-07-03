@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130630010630) do
+ActiveRecord::Schema.define(:version => 20130703022636) do
 
   create_table "comments", :force => true do |t|
     t.text     "description"
@@ -32,7 +32,10 @@ ActiveRecord::Schema.define(:version => 20130630010630) do
     t.date     "created_date"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "user_id"
   end
+
+  add_index "ideas", ["user_id"], :name => "index_ideas_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -43,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20130630010630) do
     t.string   "uid"
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
+    t.string   "image"
   end
 
 end

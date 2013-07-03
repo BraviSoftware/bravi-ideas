@@ -15,8 +15,9 @@ BraviIdeas::Application.routes.draw do
   # Home
   get "home/index"
   get "home/ideas"
-  get "home/comments"
+  get "home/comments/:id", to: 'home#comments'
   post "home/add_comment"
+  delete "home/remove_comment/:id", to: "home#remove_comment"
   
   root :to => "home#index"
 

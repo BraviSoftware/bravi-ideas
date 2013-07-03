@@ -13,7 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require toastr
 //= require_tree .
+
+// Create js namespace
+var BraviIdeas = BraviIdeas || {};
 
 $(function () {
 	
@@ -39,8 +43,4 @@ $(function () {
 
 		e.preventDefault();
 	});
-
-	setTimeout(function(){
-		$('[data-toggle="tooltip"]').tooltip();	
-	}, 250);
 });

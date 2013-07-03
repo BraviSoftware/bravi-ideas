@@ -10,6 +10,7 @@
  *
  *
  *=require twitter-bootstrap-static/bootstrap
+ *= require toastr
  * #not using 'require_tree' .
  *
  *= require_self
