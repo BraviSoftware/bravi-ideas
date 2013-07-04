@@ -44,7 +44,7 @@ class Idea < ActiveRecord::Base
   def self.allAndCurrentUserVoted(user_id)
     find(
       :all, 
-      :select => "ideas.id, ideas.description, ideas.negative, ideas.positive, ideas.title, users.image as user_image, votes.user_id as current_user_id_voted",
+      :select => "ideas.id, description, negative, positive, title, ideas.user_id, image as user_image, votes.user_id as current_user_id_voted",
       :joins => "inner join users on ideas.user_id = users.id left outer join votes on ideas.id = votes.idea_id and votes.user_id = #{user_id}",
       :order  => "ideas.id"
     )

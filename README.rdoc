@@ -4,6 +4,3 @@ This amazing application was conceived to share ideas and proposals.
 You are able to share your idea and people can vote for that.
 
 You can help us to develop - the application was written in Ruby, using the Rails framework.
-
- 
-

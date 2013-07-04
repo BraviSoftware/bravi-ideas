@@ -13,7 +13,7 @@
 							<a href="#" data-bind="click: $root.selectIdea"><h3 data-bind="text: title"></h3></a>
 						</header>
 
-						<div class="idea-description" data-bind="text: description"></div>
+						<div class="idea-description" data-bind="text: getPreviewDescription()"></div>
 
 						<div class="percentage-votes-values">
 							<ul>
@@ -62,6 +62,7 @@
 			<div class="idea-description" data-bind="text: description"></div>
 
 			
+			
 			<div class="do-you-like-bar">
 				<span>Do you like?</span>
 
@@ -81,6 +82,10 @@
 					<i class="icon-thumbs-down" data-bind="text: negative"></i>
 				</button>
 
+				<a data-bind="visible: current_user_is_the_author, attr: {href: path_edit }" class="btn">
+					<i class="icon-pencil"></i> Edit
+				</a>
+
 				<a href="#" class="btn-comments"
 					data-bind="tooltip: true"
 					data-toggle="tooltip" 
@@ -88,6 +93,7 @@
 					data-original-title="I would like comment about it.">
 					<i class="icon-comments-alt"></i> Comments
 				</a>
+				<div class="clear"></div>
 			</div>
 
 			<div class="group-comments">

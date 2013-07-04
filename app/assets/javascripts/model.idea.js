@@ -1,5 +1,5 @@
 var BraviIdeas = BraviIdeas || {};
-BraviIdeas.IdeaModel = (function (dto) {
+BraviIdeas.IdeaModel = (function (dto, currentUserId) {
 	var self = this;
 
 	self.id = dto.id;
@@ -10,6 +10,17 @@ BraviIdeas.IdeaModel = (function (dto) {
 	self.negative = ko.observable(dto.negative);
 	self.user_image = dto.user_image;
 	self.current_user_has_voted = (dto.current_user_id_voted && dto.current_user_id_voted > 0);
+	self.current_user_is_the_author = (dto.user_id === currentUserId);
+	self.path_edit = '/ideas/' + self.id + '/edit';
+
+	var _previewDescription = '';
+	self.getPreviewDescription = function(){
+		var desc = self.description;
+		if(_previewDescription || !desc) return _previewDescription;
+
+		_previewDescription = ((desc.length > 130) ? desc.substr(0, 130) : desc) +  '...';
+		return _previewDescription;
+	};
 
 	self.getTotal = function(){
 		return self.positive() + self.negative();

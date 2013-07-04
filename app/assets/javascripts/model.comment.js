@@ -1,5 +1,5 @@
 var BraviIdeas = BraviIdeas || {};
-BraviIdeas.CommentModel = (function (dto) {
+BraviIdeas.CommentModel = (function (dto, currentUserId) {
 	var self = this;
 
 	self.id = dto.id;
@@ -8,7 +8,7 @@ BraviIdeas.CommentModel = (function (dto) {
 	self.user_image = dto.user_image;
 
 	self.belongsToCurrentUser = function() {
-		return self.user_id === parseInt($('#user').data('id'),10);
+		return self.user_id === currentUserId;
 	};
 
 	return self;

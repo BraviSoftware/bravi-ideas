@@ -48,18 +48,12 @@ BraviIdeas.ViewModelIdea = (function(){
 			type    : 'GET',
 			url     : '/home/ideas.json'
 		}).done(function(data){
-			mapToModel(data);
+			mapToModel(data, BraviIdeas.IdeaModel);
 			ideas(data);
 
+			// notify the page is ready
 			ideasLoadCompleted(true);
 		});
-
-		function mapToModel(items){
-			for(var i = 0; i < items.length; i++){
-				// override dto for a proper model
-				items[i] = new BraviIdeas.IdeaModel(items[i]);				
-			};
-		}
 	},
 
 	getComments = function(idea, callback){
@@ -67,17 +61,17 @@ BraviIdeas.ViewModelIdea = (function(){
 			type    : 'GET',
 			url     : '/home/comments/' + idea + '.json'
 		}).done(function(data){
-			mapToModel(data);
+			mapToModel(data, BraviIdeas.CommentModel);
 			comments(data);
 			callback();
 		});
+	},
 
-		function mapToModel(items){
-			for(var i = 0; i < items.length; i++){
-				// override dto for a proper model
-				items[i] = new BraviIdeas.CommentModel(items[i]);				
-			};
-		}
+	mapToModel = function (items, modelType){
+		for(var i = 0; i < items.length; i++){
+			// override dto for a proper model
+			items[i] = new modelType(items[i], currentUserId());				
+		};
 	},
 
 	vote = function (type, callback, idea) {
