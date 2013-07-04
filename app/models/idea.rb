@@ -42,6 +42,7 @@ class Idea < ActiveRecord::Base
   end
 
   def self.allAndCurrentUserVoted(user_id)
+    user_id ||= 0
     find(
       :all, 
       :select => "ideas.id, description, negative, positive, title, ideas.user_id, image as user_image, votes.user_id as current_user_id_voted",
