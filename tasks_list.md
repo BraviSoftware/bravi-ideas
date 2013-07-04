@@ -1,5 +1,4 @@
 # Features remaining \ Improvement               #
---------------------------------------------------
 - Load just preview text at first
 - Load full content when selected the idea
 - Menu responsive collapse
@@ -8,14 +7,12 @@
 
 
 # Bugs                                           #
---------------------------------------------------
 - Hide tooltip button vote after voted
 
 
 
 
 # New Features                                   #
---------------------------------------------------
 - Change idea status, like: completed or canceled
 
 
@@ -23,7 +20,6 @@
 
 
 # Done                                           #
---------------------------------------------------
 - Hide and block to My Ideas for user Logged in
 - Filter My Ideas
 - Disable vote buttons for not authenticated users

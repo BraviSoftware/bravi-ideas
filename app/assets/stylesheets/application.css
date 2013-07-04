@@ -16,21 +16,22 @@
  *= require_self
  */
 
-/*font-family: 'Cabin', sans-serif;
-
-font-family: 'Inconsolata', sans-serif;*/
-
+/* Base Elments
+---------------------------------------*/
 body{
 	font-family: 'Ubuntu', sans-serif;
-}
-#header-main {
-
 }
 
 h1, h2, h3, h4{
 	font-family: 'Amaranth', sans-serif;
 }
 
+.clear {
+  clear: both;  
+}
+
+/* Header
+---------------------------------------*/
 #header-main h2 {
   margin-bottom: 0;
 }
@@ -44,16 +45,42 @@ h1, h2, h3, h4{
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-
-
 #header-main span {
   margin-top: 0;
   font-size: 12px;
 }
 
+/* User Sign In \ Info Bar
+---------------------------------------*/
+#user_nav{
+  text-align: right;
+  border-bottom:1px dashed #ededed;
+}
+
+ul.nav{
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+/* Wrapper Ideas
+---------------------------------------*/
+#wrapper-ideas{
+  position: relative;
+  min-height: 100px;
+}
+
+#group-ideas{
+  display: none;
+}
+
+.load-completed #group-ideas{
+  display: block;
+}
+
+/* Idea Box - Preview
+---------------------------------------*/
 .idea {
   margin: 10px 0 0 0;
-  
   border: 1px solid #d8d8d8;
   background: #f9f9f9;
   -moz-border-radius: 4px;
@@ -89,58 +116,8 @@ h1, h2, h3, h4{
   width: 25px;
 }
 
-#full-idea .comment {
-  color: #000;
-  margin: 10px 10%;
-  padding: 10px;
-  border: 1px solid #ededed;
-  background: #f9f9f9;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  -moz-box-shadow: inset 0 0 0 1px #fff;
-  -webkit-box-shadow: inset 0 0 0 1px #fff;
-  box-shadow: inset 0 0 0 1px #ccc;
-}
-
-
-
-#full-idea .comment .user-img {
-  float:left;
-  margin:10px;
-  width: 35px;
-}
-
-.clear {
-  clear: both; 	
-}
-
-#footer-main{
-  margin-top: 10px;
-  font-size: 10px;
-}
-
-
-.group-comments{
-  margin-top: 20px;
-  display: none;
-}
-
-.box {
-  margin: 0 0 20px; 
-  padding: 20px 0 0; 
-
-  border: 1px solid #d8d8d8; 
-  background: #f9f9f9;
-
-  -moz-border-radius: 4px; 
-  -webkit-border-radius: 4px; 
-  border-radius: 4px; 
-  -moz-box-shadow: inset 0 0 0 1px #fff;
-  -webkit-box-shadow: inset 0 0 0 1px #fff;
-  box-shadow: inset 0 0 0 1px #fff; 
-}
-
+/* Percentage Votes
+---------------------------------------*/
 .percentage-votes-bar,
 .percentage-votes-values ul {
   display: table;
@@ -164,14 +141,12 @@ h1, h2, h3, h4{
   text-indent: -9999px;
 }
 
-
 .percentage-votes-values{
   display: none;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-
   color: rgb(96, 96, 96);
   border-top: solid 1px rgb(183, 183, 183);
   background: rgb(255, 255, 255);
@@ -207,19 +182,9 @@ h1, h2, h3, h4{
   font-size: 10px;
 }
 
-#wrapper-ideas{
-  position: relative;
-  min-height: 100px;
-}
 
-#group-ideas{
-  display: none;
-}
-
-.load-completed #group-ideas{
-  display: block;
-}
-
+/* Idea Box - Full Content
+---------------------------------------*/
 #wrapper-full-idea{
   display: none;
   position: absolute;
@@ -230,7 +195,6 @@ h1, h2, h3, h4{
   background: #222;
   color: #d6d6d6;
   padding: 10px;
-
   border: 1px solid #000;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -238,87 +202,102 @@ h1, h2, h3, h4{
   -moz-box-shadow: inset 0 0 0 1px #636363;
   -webkit-box-shadow: inset 0 0 0 1px #636363;
   box-shadow: inset 0 0 0 1px #636363;
-
-	/*border: 1px solid #000;
- 	background: #f9f9f9;
- 	-moz-border-radius: 4px;
- 	-webkit-border-radius: 4px;
- 	border-radius: 4px;
- 	-moz-box-shadow: inset 0 0 0 1px #fff;
- 	-webkit-box-shadow: inset 0 0 0 1px #fff;
- 	box-shadow: inset 0 0 0 1px #fff;*/    
- }
-
-
- #full-idea header {
- 	min-height: 80px;
- 	border-bottom: 1px dashed #ccc;
- 	color: #fff;
- 	overflow: hidden;
- }
-
- #full-idea .user-img {
- 	float:left;
- 	margin:10px;
- 	width: 60px;
- }
-
- .idea-description{
- 	padding: 5px 0;
- 	min-height: 100px;
- }
-
- .do-you-like-bar{
- 	
- }
-
- .do-you-like-bar span {
- 	color: #fff;
- 	font-weight: bold;
- }
-
-
- #arrow {
- 	border-bottom: 10px solid rgb(34, 34, 34);
- 	border-left: 10px solid rgba(0, 0, 0, 0);
- 	border-right: 10px solid rgba(0, 0, 0, 0);
- 	height: 0;
- 	width: 0;
- 	margin-left: 20px;
- }
-
- .btn-comments{
- 	float: right;
- 	margin:0 5px;
- 	font-weight: bold;
- }
-
- .btn-comments:hover{
- 	text-decoration: none;
- 	color: #fff;
- }
-
- .new-comment {
- 	margin: 10px 15%;
- 	padding: 10px 0;
- }
-
- .new-comment h4{
- 	color: #fff;
- }
-
- .new-comment textarea {
- 	width: 100%;
- 	min-height: 75px;
- }
-
-
-#user_nav{
-  text-align: right;
-  border-bottom:1px dashed #ededed;
 }
 
-ul.nav{
+
+#full-idea header {
+  min-height: 80px;
+  border-bottom: 1px dashed #ccc;
+  color: #fff;
+  overflow: hidden;
+}
+
+#full-idea .user-img {
+  float:left;
+  margin:10px;
+  width: 60px;
+}
+
+.idea-description{
+  padding: 5px 0;
+  min-height: 100px;
+}
+
+.do-you-like-bar{
+
+}
+
+.do-you-like-bar span {
+  color: #fff;
+  font-weight: bold;
+}
+
+
+#arrow {
+  border-bottom: 10px solid rgb(34, 34, 34);
+  border-left: 10px solid rgba(0, 0, 0, 0);
+  border-right: 10px solid rgba(0, 0, 0, 0);
+  height: 0;
+  width: 0;
+  margin-left: 20px;
+}
+
+/* Idea Box - Full Content > Comments
+---------------------------------------*/
+#full-idea .comment {
+  color: #000;
+  margin: 10px 10%;
+  padding: 10px;
+  border: 1px solid #ededed;
+  background: #f9f9f9;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: inset 0 0 0 1px #fff;
+  -webkit-box-shadow: inset 0 0 0 1px #fff;
+  box-shadow: inset 0 0 0 1px #ccc;
+}
+
+#full-idea .comment .user-img {
+  float:left;
+  margin:10px;
+  width: 35px;
+}
+
+.group-comments{
+  margin-top: 20px;
+  display: none;
+}
+
+.btn-comments{
+  float: right;
+  margin:0 5px;
+  font-weight: bold;
+}
+
+.btn-comments:hover{
+  text-decoration: none;
+  color: #fff;
+}
+
+.new-comment {
+  margin: 10px 15%;
+  padding: 10px 0;
+}
+
+.new-comment h4{
+  color: #fff;
+}
+
+.new-comment textarea {
+  width: 100%;
+  min-height: 75px;
+}
+
+
+/* Footer
+---------------------------------------*/
+#footer-main{
   margin-top: 10px;
-  margin-bottom: 0;
+  font-size: 10px;
 }
