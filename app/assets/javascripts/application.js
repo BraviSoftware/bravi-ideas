@@ -14,33 +14,24 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require toastr
+//= require_self
 //= require_tree .
 
 // Create js namespace
 var BraviIdeas = BraviIdeas || {};
+BraviIdeas.app = (function(){
+	var currentUserId = function (){
+		return parseInt($('#user').data('id'), 10);
+	},
 
-$(function () {
-	
-	$(document).on('click', '.percentage-votes-bar', function(e) {
-		var box = $(this).prev('.idea-content').find('.percentage-votes-values');
+	isUserAuthenticated = function(){
+		return currentUserId() && currentUserId() > 0;
+	};
 
-		if(box.is(':visible'))
-			box.slideUp();
-		else
-			box.slideDown();
+	var vm = {
+		currentUserId: currentUserId,
+		isUserAuthenticated: isUserAuthenticated
+	};
 
-		e.preventDefault();
-	});
-
-
-	$(document).on('click', '.btn-comments', function(e) {
-		var box = $('.group-comments');
-
-		if(box.is(':visible'))
-			box.slideUp();
-		else
-			box.slideDown();
-
-		e.preventDefault();
-	});
+	return vm;
 });

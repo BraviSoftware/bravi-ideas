@@ -1,4 +1,3 @@
-var BraviIdeas = BraviIdeas || {};
 BraviIdeas.ViewModelIdea = (function(){
 	var ideas = ko.observableArray([]),
 	comments = ko.observableArray([]),
@@ -7,16 +6,8 @@ BraviIdeas.ViewModelIdea = (function(){
 
 	ideasLoadCompleted = ko.observable(),
 
-	currentUserId = function (){
-		return parseInt($('#user').data('id'), 10);
-	},
-
-	isUserAuthenticated = function(){
-		return currentUserId() && currentUserId() > 0;
-	},
-
 	canVote = ko.computed(function(){
-		return isUserAuthenticated() && selected() && !selected().current_user_has_voted;
+		return BraviIdeas.app().isUserAuthenticated() && selected() && !selected().current_user_has_voted;
 	}),
 
 	like = function () {
@@ -70,7 +61,7 @@ BraviIdeas.ViewModelIdea = (function(){
 	mapToModel = function (items, modelType){
 		for(var i = 0; i < items.length; i++){
 			// override dto for a proper model
-			items[i] = new modelType(items[i], currentUserId());				
+			items[i] = new modelType(items[i]);
 		};
 	},
 
@@ -81,7 +72,7 @@ BraviIdeas.ViewModelIdea = (function(){
 		}).done(function(){
 			callback(type, idea);
 
-			selected().current_user_has_voted = currentUserId();
+			selected().current_user_has_voted = BraviIdeas.app().currentUserId();
 		}).fail(function(){
 			toastr.warning('<strong>Really, again?!</strong><br>You alredy voted on it.');
 		});
@@ -181,11 +172,33 @@ BraviIdeas.ViewModelIdea = (function(){
 			result.push(row);
 		}
 		return result;
-	});
+	}),
+
+	bindDOMEvents = function(){
+		function bindSlideUpDownBox(selector, getBoxFunc){
+			$(document).on('click', selector, function(e) {
+				var box = getBoxFunc(this);
+
+				box.is(':visible') ? box.slideUp() : box.slideDown();
+
+				e.preventDefault();
+			});
+		}
+
+		bindSlideUpDownBox('.percentage-votes-bar', function(that){
+			return $(that).prev('.idea-content').find('.percentage-votes-values');
+		});
+
+		bindSlideUpDownBox('.btn-comments', function(){
+			return $('.group-comments');
+		});
+	};
 
 
 	init = function(){
 		getAll();
+
+		bindDOMEvents();
 	};
 
 	var vm = {
