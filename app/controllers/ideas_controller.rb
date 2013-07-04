@@ -29,9 +29,13 @@ class IdeasController < ApplicationController
   def show
     @idea = Idea.find_by_id_and_user_id(params[:id], session[:user_id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @idea }
+    if @idea.blank?
+      redirect_to ideas_url
+    else
+      respond_to do |format|
+          format.html # show.html.erb
+          format.json { render json: @idea }
+      end
     end
   end
 
@@ -55,6 +59,7 @@ class IdeasController < ApplicationController
   # POST /ideas.json
   def create
     @idea = Idea.new(params[:idea])
+    @idea.user_id = session[:user_id]
 
     respond_to do |format|
       if @idea.save

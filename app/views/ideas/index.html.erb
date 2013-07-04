@@ -10,6 +10,7 @@
     <th>Title</th>
     <th>Positive</th>
     <th>Negative</th>
+    <th>Status</th>
     <th>Created date</th>
     <th></th>
   </tr>
@@ -19,12 +20,15 @@
     <td><%= idea.title %></td>
     <td><%= idea.positive %></td>
     <td><%= idea.negative %></td>
+    <td>
+        <%= status_label(idea.status, idea.get_status_label) %>
+    </td>
     <td><%= idea.created_date %></td>
     <td>
       <div class="btn-group">
-        <%= link_to 'Show', idea, :class => 'btn' %>
-        <%= link_to 'Edit', edit_idea_path(idea), :class => 'btn' %>
-        <%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn' %>
+        <%= link_to 'Show', idea, :class => 'btn btn-small' %>
+        <%= link_to 'Edit', edit_idea_path(idea), :class => 'btn btn-small' %>
+        <%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small btn-danger' %>
       </div>
     </td>
   </tr>

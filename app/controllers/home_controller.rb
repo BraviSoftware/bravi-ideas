@@ -9,7 +9,7 @@ class HomeController < ApplicationController
 
   # GET /home/ideas.json
   def ideas
-    @ideas = Idea.allAndCurrentUserVoted(session[:user_id])
+    @ideas = Idea.all_and_current_user_voted(session[:user_id])
 
     respond_to do |format|
       format.json { render json: @ideas }
