@@ -38,11 +38,21 @@ h1, h2, h3, h4{
 #header-main a:hover,
 .idea header a:hover{
   text-decoration: none;
+  color: #000;
+}
+
+#header-main a .icon-lightbulb {
+  display: inline-block;
+  -webkit-transition: -webkit-transform 1s;
 }
 
 #header-main a:hover .icon-lightbulb {
   color: rgb(245, 176, 31);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+  -webkit-transform: translate(0px, -10px);
+  -moz-transform: translate(0px, -10px);
+  -o-transform: translate(0px, -10px);
 }
 
 #header-main span {
