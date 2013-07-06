@@ -2,6 +2,8 @@
 - Load just preview text at first
 - Load full content when selected the idea
 - Menu responsive collapse
+- Use more tooltip
+- Lock comments for not authenticated users
 
 
 

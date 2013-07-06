@@ -22,7 +22,7 @@
 <% if @idea.id %>
 
 <%= f.label :status %>
-<%= collection_select('idea', 'status', Idea.all_status, :first, :last) %>
+<%= collection_select('idea', 'status', Idea::ALL_STATUS, :first, :last) %>
 
 <div class="row">
   <div class="span2">
