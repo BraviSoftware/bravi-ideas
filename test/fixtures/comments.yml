@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-# one:
-#   description: MyText
-#   owner: 
-#   idea: 
+one:
+  description: MyText
+  idea: 
 
-# two:
-#   description: MyText
-#   owner: 
-#   idea: 
+two:
+  description: MyText
+  idea: 

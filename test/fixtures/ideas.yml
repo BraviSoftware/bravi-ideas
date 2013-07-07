@@ -6,6 +6,7 @@ one:
   positive: 1
   negative: 1
   created_date: 2013-05-13
+  status: 0
 
 two:
   title: MyString
@@ -13,3 +14,4 @@ two:
   positive: 1
   negative: 1
   created_date: 2013-05-13
+  status: 1
