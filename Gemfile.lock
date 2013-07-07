@@ -41,6 +41,13 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    colorize (0.5.8)
+    coveralls (0.6.7)
+      colorize
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      thor
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -106,11 +113,17 @@ GEM
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -139,6 +152,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   coffee-rails (~> 3.2.1)
+  coveralls
   execjs
   font-awesome-rails
   jquery-rails
