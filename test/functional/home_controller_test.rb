@@ -1,9 +1,50 @@
 require 'test_helper'
 
 class HomeControllerTest < ActionController::TestCase
+  setup do
+    @user = users(:one)
+    session[:user_id] = @user.id
+  end
+
   test "should get index" do
     get :index
     assert_response :success
+  end
+
+  test "should get ideas" do
+  	get :ideas, :format => "json"
+    assert_response :success
+    assert_not_nil assigns(:ideas)
+  end
+
+  test "should get comments" do
+  	get :comments, :format => "json"
+    assert_response :success
+    assert_not_nil assigns(:comments)
+  end
+
+  test "should add comment" do
+  	@comment = comments(:one)
+
+  	assert_difference('Comment.count') do
+      post :add_comment, :format => "json", comment: {
+        description: @comment.description,
+        idea_id: @comment.idea_id
+      }
+    end
+
+    assert_response :created
+    assert_not_nil assigns(:comment)
+  end
+
+  test "should remove comment" do
+  	@comment = comments(:one)
+
+    assert_difference('Comment.count', -1) do
+      delete :remove_comment, id: @comment.id, :format => "json"
+    end
+
+    assert_response :no_content
   end
 
 end
