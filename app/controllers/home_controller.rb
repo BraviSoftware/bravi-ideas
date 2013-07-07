@@ -24,19 +24,11 @@ class HomeController < ApplicationController
 
   # POST /home/add_comment.json
   def add_comment
-    # TODO: Change to .create
-  	@comment = Comment.new
-  	@comment.description = params[:description]
-  	@comment.user = User.find(session[:user_id])
-  	@comment.idea = Idea.find(params[:idea_id])
-  	@comment.save!
+  	@comment = Comment.create({ description: params[:description], user_id: session[:user_id], idea_id: params[:idea_id] })
 
   	respond_to do |format|
-  		if @comment.save
-        # TODO: really bad, find better way to do it!!!
-        @comment_response = Comment.where(id: @comment.id).joins(:user).select('comments.*, image as user_image').first
-
-  			format.json { render json: @comment_response, status: :created }
+  		if @comment.persisted?
+  			format.json { render json: Comment.get_comment_and_its_user_image(@comment.id), status: :created }
   		else
   			format.json { render json: @comment.errors, status: :unprocessable_entity }
   		end
