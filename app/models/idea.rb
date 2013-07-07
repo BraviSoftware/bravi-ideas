@@ -35,18 +35,16 @@ class Idea < ActiveRecord::Base
   end
   
   def self.all_and_current_user_voted(user_id = 0)
-    if user_id.is_a? Integer
-      Idea.select("ideas.id, description, negative, positive, title, 
-                  ideas.user_id, image as user_image, 
-                  votes.user_id as current_user_id_voted").
-        joins("inner join users on ideas.user_id = users.id 
-                  left outer join votes on ideas.id = votes.idea_id 
-                  and votes.user_id = #{user_id}").
-        where("status = ?", OPEN).
-        order("ideas.id")
-    else
-      raise "user_id must be a Integer"
-    end
+    user_id = 0 unless user_id.is_a? Integer
+
+    Idea.select("ideas.id, description, negative, positive, title, 
+                ideas.user_id, image as user_image, 
+                votes.user_id as current_user_id_voted").
+      joins("inner join users on ideas.user_id = users.id 
+                left outer join votes on ideas.id = votes.idea_id 
+                and votes.user_id = #{user_id}").
+      where("status = ?", OPEN).
+      order("ideas.id")
   end
 
 
