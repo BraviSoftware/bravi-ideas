@@ -1,6 +1,6 @@
 == Bravi-ideas
 
-[![Coverage Status](https://coveralls.io/repos/Bravi/bravi-ideas/badge.png)](https://coveralls.io/r/Bravi/bravi-ideas)
+{<img src="https://coveralls.io/repos/Bravi/bravi-ideas/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/Bravi/bravi-ideas]
 
 This amazing application was conceived to share ideas and proposals.
 You are able to share your idea and people can vote for that.
