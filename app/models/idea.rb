@@ -7,46 +7,31 @@ class Idea < ActiveRecord::Base
   has_many :comments
   has_many :votes
   belongs_to :user
-  
-  attr_reader :status
+
   attr_accessible :created_date, :description, :negative, :positive, :title, :status, :user_id
   
-  def initialize
-    @negative = 0
-    @positive = 0
-  end
-
-  before_save :default_values
-  def default_values
-    @negative ||= 0
-    @positive ||= 0
-    @created_date ||= Time.now
-    @status ||= 0
-  end
-
   def like
-    @positive += 1
+    self.increment(:positive)
   end
 
   def unlike
-    @negative += 1
+    self.increment(:negative)
   end
 
   def get_status_label
-    ALL_STATUS[@status]
+    ALL_STATUS[self.status]
   end
 
   def close
-    @status = CLOSED
+    self.status = CLOSED
   end
 
-
   def percent_liked
-    calculate_percent @positive
+    calculate_percent self.positive
   end
 
   def percent_unliked
-    calculate_percent @negative
+    calculate_percent self.negative
   end
   
   def self.all_and_current_user_voted(user_id = 0)
@@ -66,12 +51,25 @@ class Idea < ActiveRecord::Base
 
 
   private
-
   def total
-    @positive + @negative
+    (self.positive || 0) + (self.negative || 0)
   end
 
   def calculate_percent(totalType)
     total == 0 ? PERCENT_FOR_NO_VOTES : ((totalType * 100 ) / total)
+  end
+  
+  before_save do
+    self.negative ||= 0
+    self.positive ||= 0
+    self.created_date ||= Time.now
+    self.status ||= 0
+  end
+
+  after_initialize do
+    if self.new_record?
+      self.negative ||= 0
+      self.positive ||= 0
+    end
   end
 end
