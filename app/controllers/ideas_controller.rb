@@ -90,21 +90,19 @@ class IdeasController < ApplicationController
 
   # PUT /ideas/1/like
   def like
-    vote true
+    vote_liked true
   end
 
   # PUT /ideas/1/unlike
   def unlike
-    vote false
+    vote_liked false
   end
 
   private
-  def vote(liked)
-    @previousVote = Vote.find_by_idea_id_and_user_id(params[:id], session[:user_id])
-
+  def vote_liked(liked)
     respond_to do |format|
-      if @previousVote.present?
-        format.json { render json: @previousVote, status: :bad_request }
+      if Vote.exists?(idea_id: params[:id], user_id: session[:user_id])
+        format.json { head :bad_request }
       elsif Idea.add_vote params[:id], liked, session[:user_id], params[:idea_id]
         format.json { head :no_content }
       else
