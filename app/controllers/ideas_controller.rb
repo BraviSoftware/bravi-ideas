@@ -1,17 +1,5 @@
 class IdeasController < ApplicationController
-  before_filter :check_permissions#, :only => [:index]
-
-  rescue_from SecurityError do |exception|
-    flash[:error] = exception.message
-    redirect_to current_user || root_path
-  end
-
-  def check_permissions
-    unless current_user
-      raise SecurityError, "You have no permissions to access this page"
-    end
-  end
-
+  before_filter :check_permissions
 
   # GET /ideas
   # GET /ideas.json
@@ -144,4 +132,15 @@ class IdeasController < ApplicationController
     end
   end
 
+  private
+  rescue_from SecurityError do |exception|
+    flash[:error] = exception.message
+    redirect_to current_user || root_path
+  end
+
+  def check_permissions
+    unless current_user
+      raise SecurityError, "You have no permissions to access this page"
+    end
+  end
 end

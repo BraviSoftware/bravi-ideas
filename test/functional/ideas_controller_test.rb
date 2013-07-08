@@ -56,4 +56,20 @@ class IdeasControllerTest < ActionController::TestCase
 
     assert_redirected_to ideas_path
   end
+
+  test "should like idea" do
+    assert_difference("Vote.count") do
+      put :like, :format => "json", id: @idea.id
+    end
+
+    assert_response :no_content
+  end
+
+  test "should unlike idea" do
+    assert_difference("Vote.count") do
+      put :unlike, :format => "json", id: @idea.id
+    end
+
+    assert_response :no_content
+  end
 end
