@@ -47,6 +47,20 @@ class Idea < ActiveRecord::Base
       order("ideas.id")
   end
 
+  def self.add_vote(id, liked, user_id, idea_id)
+    @idea = Idea.find(id)
+
+    if liked
+      @idea.like()
+      @idea.update_attribute :positive, @idea.positive
+    else
+      @idea.unlike()
+      @idea.update_attribute :negative, @idea.negative
+    end
+
+    Vote.create like: liked, user_id: user_id, idea_id: idea_id
+  end
+
 
   private
   def total
