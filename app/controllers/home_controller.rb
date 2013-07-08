@@ -24,10 +24,14 @@ class HomeController < ApplicationController
 
   # POST /home/add_comment.json
   def add_comment
-  	@comment = Comment.create({ description: params[:description], user_id: session[:user_id], idea_id: params[:idea_id] })
+    if User.exists? session[:user_id]
+  	 @comment = Comment.create({ description: params[:description], user_id: session[:user_id], idea_id: params[:idea_id] })
+    end
 
   	respond_to do |format|
-  		if @comment.persisted?
+      if @comment.nil?
+        format.json { head :unauthorized }
+  		elsif @comment.persisted?
   			format.json { render json: Comment.get_comment_and_its_user_image(@comment.id), status: :created }
   		else
   			format.json { render json: @comment.errors, status: :unprocessable_entity }

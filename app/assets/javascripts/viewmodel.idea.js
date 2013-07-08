@@ -10,6 +10,10 @@ BraviIdeas.ViewModelIdea = (function(){
 		return BraviIdeas.app().isUserAuthenticated() && selected() && !selected().current_user_has_voted;
 	}),
 
+	canComment = ko.computed(function(){
+		return BraviIdeas.app().isUserAuthenticated() && selected();
+	}),
+
 	like = function () {
 		vote('like', voteCallback, this);
 	},
@@ -99,6 +103,9 @@ BraviIdeas.ViewModelIdea = (function(){
 			comments.push(model);
 			comment('');
 			toastr.success('Successfully saved.');
+		})
+		.fail(function(){
+			toastr.warning('Comment not saved.');
 		});
 	},
 
@@ -204,6 +211,7 @@ BraviIdeas.ViewModelIdea = (function(){
 	var vm = {
 		ideasLoadCompleted: ideasLoadCompleted,
 		canVote: canVote,
+		canComment: canComment,
 		ideas: ideas,
 		comments: comments,
 		comment: comment,

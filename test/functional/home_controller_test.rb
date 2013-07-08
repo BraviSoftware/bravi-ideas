@@ -37,6 +37,19 @@ class HomeControllerTest < ActionController::TestCase
     assert_not_nil assigns(:comment)
   end
 
+  test "should not allow not authenticated users add comment" do
+  	@comment = comments(:one)
+  	session[:user_id] = nil # invalid user
+  	
+		post :add_comment, :format => "json", comment: {
+			description: @comment.description,
+			idea_id: @comment.idea_id
+		}
+
+    assert_response :unauthorized
+    assert_nil assigns(:comment)
+  end
+
   test "should remove comment" do
   	@comment = comments(:one)
 

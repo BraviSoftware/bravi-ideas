@@ -111,7 +111,7 @@
 					</div>
 				</div>
 				
-				<div class="new-comment">
+				<div class="new-comment" data-bind="visible: $root.canComment">
 					<h4>What do you think?</h4>
 					<textarea placeholder="I think..." data-bind="value: $root.comment"></textarea>
 					<br>						
