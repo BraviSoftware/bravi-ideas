@@ -144,14 +144,14 @@ BraviIdeas.ViewModelIdea = (function(){
 		var box = $('#wrapper-full-idea');
 
 		if(box.is(':visible') && !newItem){
-			box.fadeOut();
+			box.slideUp();
 		}
 		else{
 			getComments(selected().id, completed);
 
 			function completed(){
 				positionFullIdeaBox();
-				box.fadeIn();
+				box.slideDown();
 
 				$(window).on('resize', positionFullIdeaBox);
 
@@ -198,6 +198,10 @@ BraviIdeas.ViewModelIdea = (function(){
 
 		bindSlideUpDownBox('.percentage-votes-bar', function(that){
 			return $(that).prev('.idea-content').find('.percentage-votes-values');
+		});
+
+		bindSlideUpDownBox('#close-idea', function(that){
+			return $('#wrapper-full-idea');
 		});
 
 		bindSlideUpDownBox('.btn-comments', function(){
