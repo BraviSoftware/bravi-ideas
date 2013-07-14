@@ -305,6 +305,12 @@ ul.nav{
   min-height: 75px;
 }
 
+.msg-cant-vote-comment{
+  text-align:center;
+  color:yellow;
+  font-size:12px;
+}
+
 
 /* Footer
 ---------------------------------------*/

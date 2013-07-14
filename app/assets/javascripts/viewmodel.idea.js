@@ -10,6 +10,10 @@ BraviIdeas.ViewModelIdea = (function(){
 		return BraviIdeas.app().isUserAuthenticated() && selected() && !selected().current_user_has_voted;
 	}),
 
+	canNotVoteComment = ko.computed(function(){
+		return !BraviIdeas.app().isUserAuthenticated() || !selected();
+	}),
+
 	canComment = ko.computed(function(){
 		return BraviIdeas.app().isUserAuthenticated() && selected();
 	}),
@@ -119,7 +123,7 @@ BraviIdeas.ViewModelIdea = (function(){
 	removeComment = function(){
 		var commentToDelete = this;
 		$.when(deleteComment(commentToDelete)).done(completed);
-		
+
 		function completed(){
 			for (var i = 0; i < comments().length; i++) {
 				if(comments()[i].id === commentToDelete.id){
@@ -131,7 +135,7 @@ BraviIdeas.ViewModelIdea = (function(){
 			toastr.success('Successfully removed.');
 		}
 	},
-	
+
 	selectIdea = function(item){
 		var newItem = !selected() || (item.id !== selected().id);
 
@@ -211,7 +215,8 @@ BraviIdeas.ViewModelIdea = (function(){
 	var vm = {
 		ideasLoadCompleted: ideasLoadCompleted,
 		canVote: canVote,
-		canComment: canComment,
+		canNotVoteComment: canNotVoteComment,
+    canComment: canComment,
 		ideas: ideas,
 		comments: comments,
 		comment: comment,

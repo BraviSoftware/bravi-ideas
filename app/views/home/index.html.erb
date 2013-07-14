@@ -2,7 +2,7 @@
 	<div id="group-ideas" data-bind="foreach: ideasGroupRows">
 		<div class="row-fluid" data-bind="foreach: $data">
 			<div class="span4">
-				<div class="idea" data-bind="attr: {'data-idea': id, 
+				<div class="idea" data-bind="attr: {'data-idea': id,
 											'data-positive': percentPositive,
 											'data-negative': percentNegative}">
 					<div class="idea-content">
@@ -32,14 +32,14 @@
 					</div>
 					<a href="#" class="percentage-votes-bar">
 						<span class="percentage-vote btn-danger"
-								data-toggle="tooltip" 
+								data-toggle="tooltip"
 							 	data-placement="bottom"
 							 	data-bind="text: percentNegative, tooltip: true,
 							 				attr: {'data-original-title': percentNegative() + '%'},
 							 				style: {'width': percentNegative() + '%'}"></span>
 						<span class="percentage-vote btn-success"
-								data-toggle="tooltip" 
-							 	data-placement="bottom" 
+								data-toggle="tooltip"
+							 	data-placement="bottom"
 							 	data-bind="text: percentPositive, tooltip: true,
 							 				attr: {'data-original-title': percentPositive() + '%'},
 							 				style: {'width': percentPositive() + '%'}"></span>
@@ -61,23 +61,24 @@
 
 			<div class="idea-description" data-bind="text: description"></div>
 
-			
-			
+
+      <div class="msg-cant-vote-comment" data-bind="visible: $root.canNotVoteComment">Sign in to vote or comment</div>
+
 			<div class="do-you-like-bar">
 				<span>Do you like?</span>
 
 				<!-- Buttons thumbs -->
 				<button type="button" class="idea-like btn btn-success"
 					data-bind="click: $root.like, tooltip: true, enable: $root.canVote"
-					data-toggle="tooltip" 
-					data-placement="bottom" 
+					data-toggle="tooltip"
+					data-placement="bottom"
 					data-original-title="Yep, nice idea!">
 					<i class="icon-thumbs-up" data-bind="text: positive"></i>
 				</button>
 				<button type="button" class="idea-unlike btn btn-danger"
 					data-bind="click: $root.unlike, tooltip: true, enable: $root.canVote"
-					data-toggle="tooltip" 
-					data-placement="bottom" 
+					data-toggle="tooltip"
+					data-placement="bottom"
 					data-original-title="Nope, bad idea!">
 					<i class="icon-thumbs-down" data-bind="text: negative"></i>
 				</button>
@@ -88,8 +89,8 @@
 
 				<a href="#" class="btn-comments"
 					data-bind="tooltip: true"
-					data-toggle="tooltip" 
-					data-placement="bottom" 
+					data-toggle="tooltip"
+					data-placement="bottom"
 					data-original-title="I would like comment about it.">
 					<i class="icon-comments-alt"></i> Comments
 				</a>
@@ -100,9 +101,9 @@
 
 				<div id="comments" data-bind="foreach: $root.comments">
 					<div class="comment">
-						<button type="button" class="close" 
-								data-toggle="tooltip" 
-							 	data-placement="bottom" 
+						<button type="button" class="close"
+								data-toggle="tooltip"
+							 	data-placement="bottom"
 							 	data-original-title="remove"
 								data-bind="click: $root.removeComment, visible: belongsToCurrentUser(), tooltip: true">×</button>
 						<img class="img-polaroid user-img"  data-bind="attr: {src: user_image}" />
@@ -110,11 +111,11 @@
 						<div class="clear"></div>
 					</div>
 				</div>
-				
+
 				<div class="new-comment" data-bind="visible: $root.canComment">
 					<h4>What do you think?</h4>
 					<textarea placeholder="I think..." data-bind="value: $root.comment"></textarea>
-					<br>						
+					<br>
 					<button type="button" class="btn btn-primary btn-small" data-bind="click: $root.addComment">
 						<i class="icon-comment-alt"> Comment</i>
 					</button>
