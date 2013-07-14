@@ -11,6 +11,7 @@
  *
  *=require twitter-bootstrap-static/bootstrap
  *= require toastr
+ *= require bootstrap_and_overrides
  * #not using 'require_tree' .
  *
  *= require_self
@@ -27,7 +28,7 @@ h1, h2, h3, h4{
 }
 
 .clear {
-  clear: both;  
+  clear: both;
 }
 
 /* Header
