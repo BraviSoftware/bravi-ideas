@@ -16,3 +16,6 @@
 
 # Ignore Coverage logs
 /coverage
+
+# Vim temp files
+*.swp
