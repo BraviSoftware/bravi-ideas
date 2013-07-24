@@ -103,7 +103,7 @@ class IdeasController < ApplicationController
     respond_to do |format|
       if Vote.exists?(idea_id: params[:id], user_id: session[:user_id])
         format.json { head :bad_request }
-      elsif Idea.add_vote params[:id], liked, session[:user_id], params[:idea_id]
+      elsif Idea.add_vote(params[:id], liked, session[:user_id])
         format.json { head :no_content }
       else
         format.json { render json: @idea.errors, status: :unprocessable_entity }

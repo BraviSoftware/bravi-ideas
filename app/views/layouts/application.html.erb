@@ -3,6 +3,8 @@
 <head>
 	<title>Bravi Ideas</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
 	<%= stylesheet_link_tag    "application", :media => "all" %>
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu|Amaranth' rel='stylesheet' type='text/css'>
@@ -25,7 +27,9 @@
 				</ul>
 
 				<%= link_to(root_path) do %>
-				<h2>Bravi <i class="icon-lightbulb icon-1x"></i>deas</h2>				
+				<h2>
+          <img src="/logo_small.png" id="logo"/>
+          Bravi <i class="icon-lightbulb icon-1x"></i>deas</h2>				
 				<% end %>			
 				<span>Share your ideas. You could change the world.</span>
 			</div>
