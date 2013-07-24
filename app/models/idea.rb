@@ -44,7 +44,7 @@ class Idea < ActiveRecord::Base
                 left join votes on ideas.id = votes.idea_id 
                 and votes.user_id = #{user_id}").
       where("status = ?", OPEN).
-      order("ideas.id")
+      order("ideas.id DESC")
   end
 
   def self.add_vote(idea_id, liked, user_id)
