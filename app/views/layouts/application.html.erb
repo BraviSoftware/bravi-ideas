@@ -34,7 +34,9 @@
             </li>
             <% end %>
           </ul>
+          <% if current_user %>
           <%= link_to 'New Idea', new_idea_path, :class => 'btn btn-success' %>
+          <% end %>
          </div>
       </div>
       <div class="clear"></div>
