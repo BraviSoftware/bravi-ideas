@@ -298,6 +298,7 @@ ul.nav{
   -moz-box-shadow: inset 0 0 0 1px #fff;
   -webkit-box-shadow: inset 0 0 0 1px #fff;
   box-shadow: inset 0 0 0 1px #ccc;
+  white-space: pre-wrap;
 }
 
 #full-idea .comment .user-img {
