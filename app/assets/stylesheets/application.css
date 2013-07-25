@@ -263,7 +263,6 @@ ul.nav{
 .idea-description{
   padding: 5px 0;
   min-height: 100px;
-  white-space: pre-wrap;
 }
 
 .do-you-like-bar{
@@ -299,14 +298,18 @@ ul.nav{
   -moz-box-shadow: inset 0 0 0 1px #fff;
   -webkit-box-shadow: inset 0 0 0 1px #fff;
   box-shadow: inset 0 0 0 1px #ccc;
-  white-space: pre-wrap;
 }
 
 #full-idea .comment .user-img {
   float:left;
-  margin:10px;
+  margin:10px 10px 5px 10px;
   width: 35px;
 }
+
+#full-idea .comment .description {
+    white-space: pre-wrap;
+}
+
 
 .group-comments{
   margin-top: 20px;
