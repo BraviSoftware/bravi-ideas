@@ -29,6 +29,12 @@ class HomeControllerTest < ActionController::TestCase
     assert_not_nil assigns(:ideas)
   end
   
+  test "should get ideas sorted by more commented" do
+    get :ideas, :format => "json", sort_type: "commented"
+    assert_response :success
+    assert_not_nil assigns(:ideas)
+  end
+  
   test "should get ideas sorted by more unliked" do
     get :ideas, :format => "json", sort_type: "unliked"
     assert_response :success

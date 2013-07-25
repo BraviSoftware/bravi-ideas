@@ -43,9 +43,11 @@ BraviIdeas.ViewModelIdea = (function(){
 		.prop('disabled', true)
 		.off('click');
 	},
-
+ 
 	getAll = function(sort){
     ideasLoading(true);
+    hideIdeaOpen();
+    
     var sortType = sort ? ('?sort_type=' + sort) : '';
 		$.ajax({
 			type    : 'GET',
@@ -58,6 +60,10 @@ BraviIdeas.ViewModelIdea = (function(){
 			ideasLoadCompleted(true); // used just the first time
       ideasLoading(false);
 		});
+    
+    function hideIdeaOpen(){
+      $('#wrapper-full-idea').slideUp();
+    }
 	},
 
 	getComments = function(idea, callback){

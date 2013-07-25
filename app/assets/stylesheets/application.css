@@ -12,6 +12,7 @@
  *=require twitter-bootstrap-static/bootstrap
  *= require toastr
  *= require bootstrap_and_overrides
+ *= require font-awesome
  * #not using 'require_tree' .
  *
  *= require_self

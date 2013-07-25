@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
 	<%= stylesheet_link_tag    "application", :media => "all" %>
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu|Amaranth' rel='stylesheet' type='text/css'>
 	<%= csrf_meta_tags %>
@@ -42,9 +41,9 @@
       <div class="clear"></div>
 			<div id="user_nav">
         <% if current_page?(root_path) %>
-        <a id="btn-filter" class="btn btn-link pull-left" href="#" data-toggle="tooltip"	
+        <a id="btn-filter" class="btn btn-link pull-left" href="javascript:;" data-toggle="tooltip"	
             data-placement="right" data-original-title="Sort by" data-bind="tooltip: true">
-          <i class="icon-filter"></i>
+          <i class="icon-sort-by-attributes-alt"></i>
         </a>
         <% end %>
         <i class="icon-spinner icon-spin icon-large pull-left" data-bind="visible: $root.ideasLoading"></i>
@@ -57,17 +56,30 @@
 		  </div>
       <div id="filter-options-bar">
         <label class="radio inline">
-          <input type="radio" name="ideas_sort" value="rated" data-bind="checked: sort"> more rated
+          <input type="radio" name="ideas_sort" value="rated" data-bind="checked: sort">
+          <i class="icon-bolt" data-toggle="tooltip"	
+            data-placement="top" data-original-title="more rated" data-bind="tooltip: true"></i>
         </label>
         <label class="radio inline">
-          <input type="radio" name="ideas_sort" value="liked" data-bind="checked: sort"> more liked
+          <input type="radio" name="ideas_sort" value="liked" data-bind="checked: sort">
+          <i class="icon-thumbs-up" data-toggle="tooltip"	
+            data-placement="top" data-original-title="more liked" data-bind="tooltip: true"></i>
         </label>
         <label class="radio inline">
-          <input type="radio" name="ideas_sort" value="unliked" data-bind="checked: sort"> more unliked
+          <input type="radio" name="ideas_sort" value="unliked" data-bind="checked: sort">
+          <i class="icon-thumbs-down" data-toggle="tooltip"	
+            data-placement="top" data-original-title="more unliked" data-bind="tooltip: true"></i>
         </label>
         <label class="radio inline">
-          <input type="radio" name="ideas_sort" value="created_date" data-bind="checked: sort"> created date
-        </label>
+          <input type="radio" name="ideas_sort" value="commented" data-bind="checked: sort">
+          <i class="icon-comments" data-toggle="tooltip"	
+            data-placement="top" data-original-title="more commented" data-bind="tooltip: true"></i>
+        </label> 
+        <label class="radio inline">
+          <input type="radio" name="ideas_sort" value="created_date" data-bind="checked: sort">
+          <i class="icon-calendar" data-toggle="tooltip"	
+            data-placement="top" data-original-title="newer" data-bind="tooltip: true"></i>
+        </label>         
       </div>
 		</header> 
 

@@ -40,7 +40,8 @@ class Idea < ActiveRecord::Base
     select("ideas.id, description, negative, positive, title, 
                 ideas.user_id, image as user_image, 
                 votes.user_id as current_user_id_voted,
-                (positive + negative) as votes_amount").
+                (positive + negative) as votes_amount,
+                (select count(cm.idea_id) from comments cm where cm.idea_id = ideas.id) as comments_amount").
       joins("inner join users on ideas.user_id = users.id 
               left outer join votes on ideas.id = votes.idea_id 
                 and votes.user_id = #{user_id}").
@@ -78,6 +79,7 @@ class Idea < ActiveRecord::Base
       when "rated" then "votes_amount DESC, #{default_sort}"
       when "liked" then "positive DESC, #{default_sort}"
       when "unliked" then "negative DESC, #{default_sort}"
+      when "commented" then "comments_amount DESC, #{default_sort}"
       else default_sort
     end
   end
