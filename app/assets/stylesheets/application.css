@@ -238,6 +238,15 @@ ul.nav{
   overflow: hidden;
 }
 
+#full-idea>header>button{
+  color: #fff;
+  opacity:0.8;
+}
+
+#full-idea>header>button:hover{
+  opacity:1;
+}
+
 #full-idea .user-img {
   float:left;
   margin:10px;
