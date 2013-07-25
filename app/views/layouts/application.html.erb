@@ -15,24 +15,29 @@
 		
 		<header id="header-main">
 			<div class="masthead">
-				<ul class="nav nav-pills pull-right">
-					<li <%= cp(root_path) %>>
-						<%= link_to 'All Ideas', root_path %>
-					</li>
-					<% if current_user %>
-					<li <%= cp(ideas_path) %>>
-						<%= link_to 'My Ideas', ideas_path %>
-					</li>
-					<% end %>
-				</ul>
-
-				<%= link_to(root_path) do %>
-				<h2>
-          <img src="/logo_small.png" id="logo"/>
-          Bravi <i class="icon-lightbulb icon-1x"></i>deas</h2>				
-				<% end %>			
-				<span>Share your ideas. You could change the world.</span>
-			</div>
+        <div id="logo-header">
+          <%= link_to(root_path) do %>
+          <h2>
+            <img src="/logo_small.png" id="logo"/>
+            Bravi <i class="icon-lightbulb icon-1x"></i>deas</h2>				
+          <% end %>			
+          <span>Share your ideas. You could change the world.</span>
+        </div>
+			  <div id="menu-header">
+          <ul class="nav nav-pills">
+            <li <%= cp(root_path) %>>
+              <%= link_to 'All Ideas', root_path %>
+            </li>
+            <% if current_user %>
+            <li <%= cp(ideas_path) %>>
+              <%= link_to 'My Ideas', ideas_path %>
+            </li>
+            <% end %>
+          </ul>
+          <%= link_to 'New Idea', new_idea_path, :class => 'btn btn-success' %>
+         </div>
+      </div>
+      <div class="clear"></div>
 			<div id="user_nav">
 			<% if current_user %>
 			Signed in as <strong id="user" data-id="<%= current_user.id %>"><%= current_user.name %></strong>!

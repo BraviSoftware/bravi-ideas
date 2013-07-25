@@ -66,6 +66,16 @@ h1, h2, h3, h4{
   font-size: 12px;
 }
 
+#logo-header{width:350px; float:left;}
+#menu-header{width:250px; float:right;}
+#header-main .masthead{clear:both}
+
+#menu-header>ul, #menu-header>a{
+  display: inline-block;
+  vertical-align: middle;
+  margin-top:10px;
+}
+
 /* User Sign In \ Info Bar
 ---------------------------------------*/
 #user_nav{
@@ -322,4 +332,12 @@ ul.nav{
 #footer-main{
   margin-top: 10px;
   font-size: 10px;
+}
+
+
+/* Responsive
+---------------------------------------*/
+@media (max-width: 650px) {
+  .responsive-hide{ display:none;  }
+  #logo-header, #menu-header{ float: none; margin: 0 auto; width: auto; text-align: center; }
 }
