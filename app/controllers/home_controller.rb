@@ -10,15 +10,13 @@ class HomeController < ApplicationController
 
   # GET /home/ideas.json
   def ideas
-    @ideas = Idea.all_and_current_user_voted(session[:user_id])
-
+    @ideas = Idea.all_and_current_user_voted(session[:user_id], params[:sort_type])
     respond_with(@ideas)
   end
 
   # GET /home/comments.json
   def comments
   	@comments = Comment.where(idea_id: params[:id]).joins(:user).select('comments.*, image as user_image').order('comments.id')
-
   	respond_with(@comments)
   end
 

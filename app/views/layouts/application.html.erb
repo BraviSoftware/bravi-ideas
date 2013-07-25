@@ -41,13 +41,34 @@
       </div>
       <div class="clear"></div>
 			<div id="user_nav">
-			<% if current_user %>
-			Signed in as <strong id="user" data-id="<%= current_user.id %>"><%= current_user.name %></strong>!
-			<%= link_to "Sign out", signout_path, id: "sign_out", class: "btn btn-link" %>
-			<% else %>
-			<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: "btn btn-link" %>
-			<% end %>
-		</div>
+        <% if current_page?(root_path) %>
+        <a id="btn-filter" class="btn btn-link pull-left" href="#" data-toggle="tooltip"	
+            data-placement="right" data-original-title="Sort by" data-bind="tooltip: true">
+          <i class="icon-filter"></i>
+        </a>
+        <% end %>
+        <i class="icon-spinner icon-spin icon-large pull-left" data-bind="visible: $root.ideasLoading"></i>
+        <% if current_user %>
+        Signed in as <strong id="user" data-id="<%= current_user.id %>"><%= current_user.name %></strong>!
+        <%= link_to "Sign out", signout_path, id: "sign_out", class: "btn btn-link" %>
+        <% else %>
+        <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: "btn btn-link" %>
+        <% end %>
+		  </div>
+      <div id="filter-options-bar">
+        <label class="radio inline">
+          <input type="radio" name="ideas_sort" value="rated" data-bind="checked: sort"> more rated
+        </label>
+        <label class="radio inline">
+          <input type="radio" name="ideas_sort" value="liked" data-bind="checked: sort"> more liked
+        </label>
+        <label class="radio inline">
+          <input type="radio" name="ideas_sort" value="unliked" data-bind="checked: sort"> more unliked
+        </label>
+        <label class="radio inline">
+          <input type="radio" name="ideas_sort" value="created_date" data-bind="checked: sort"> created date
+        </label>
+      </div>
 		</header> 
 
 

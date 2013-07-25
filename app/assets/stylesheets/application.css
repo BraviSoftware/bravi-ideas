@@ -88,6 +88,12 @@ ul.nav{
   margin-bottom: 0;
 }
 
+/* Filter \ Sort Options
+---------------------------------------*/
+#filter-options-bar{
+  display:none; 
+}
+
 /* Wrapper Ideas
 ---------------------------------------*/
 #wrapper-ideas{

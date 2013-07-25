@@ -5,6 +5,8 @@ BraviIdeas.ViewModelIdea = (function(){
 	selected = ko.observable(),
 
 	ideasLoadCompleted = ko.observable(),
+      
+  ideasLoading = ko.observable(true),
 
 	canVote = ko.computed(function(){
 		return BraviIdeas.app().isUserAuthenticated() && selected() && !selected().current_user_has_voted;
@@ -42,16 +44,19 @@ BraviIdeas.ViewModelIdea = (function(){
 		.off('click');
 	},
 
-	getAll = function(){
+	getAll = function(sort){
+    ideasLoading(true);
+    var sortType = sort ? ('?sort_type=' + sort) : '';
 		$.ajax({
 			type    : 'GET',
-			url     : '/home/ideas.json'
+			url     : '/home/ideas.json' + sortType
 		}).done(function(data){
 			mapToModel(data, BraviIdeas.IdeaModel);
 			ideas(data);
 
 			// notify the page is ready
-			ideasLoadCompleted(true);
+			ideasLoadCompleted(true); // used just the first time
+      ideasLoading(false);
 		});
 	},
 
@@ -167,7 +172,13 @@ BraviIdeas.ViewModelIdea = (function(){
 			};
 		}
 	},
-
+     
+  sort = ko.observable(),
+      
+  changedSort = ko.computed(function(){
+    var sortType = sort();
+    getAll(sortType);
+  }),
 
 	ideasGroupRows = ko.computed(function () {
 
@@ -207,6 +218,10 @@ BraviIdeas.ViewModelIdea = (function(){
 		bindSlideUpDownBox('.btn-comments', function(){
 			return $('.group-comments');
 		});
+    
+    bindSlideUpDownBox('#btn-filter', function(){
+			return $('#filter-options-bar');
+		});
 	};
 
 
@@ -217,7 +232,8 @@ BraviIdeas.ViewModelIdea = (function(){
 	};
 
 	var vm = {
-		ideasLoadCompleted: ideasLoadCompleted,
+		ideasLoading: ideasLoading,
+    ideasLoadCompleted: ideasLoadCompleted,
 		canVote: canVote,
 		canNotVoteComment: canNotVoteComment,
     canComment: canComment,
@@ -233,7 +249,8 @@ BraviIdeas.ViewModelIdea = (function(){
 		addComment: addComment,
 		removeComment: removeComment,
 		selected: selected,
-		selectIdea: selectIdea
+		selectIdea: selectIdea,
+    sort: sort
 	};
 
 	init();
