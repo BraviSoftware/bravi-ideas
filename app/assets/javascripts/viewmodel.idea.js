@@ -119,6 +119,7 @@ BraviIdeas.ViewModelIdea = (function(){
 			var model = new BraviIdeas.CommentModel(data);
 			comments.push(model);
 			comment('');
+      selected().upCommentsAmount(); 
 			toastr.success('Successfully saved.');
 		})
 		.fail(function(){
@@ -141,8 +142,9 @@ BraviIdeas.ViewModelIdea = (function(){
 			for (var i = 0; i < comments().length; i++) {
 				if(comments()[i].id === commentToDelete.id){
 					comments.splice(i, 1);
+          selected().downCommentsAmount(); 
 					break;
-				}
+				}        
 			};
 
 			toastr.success('Successfully removed.');

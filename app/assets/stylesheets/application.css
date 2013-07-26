@@ -147,6 +147,24 @@ ul.nav{
   margin-top: 3px;
 }
 
+
+.idea-content>header>.icon-stack>.icon-comment{
+  font-size:25px;
+  color:#dbdbdb;
+}
+.idea-content>header>.icon-stack>.icon-stack-base{
+  font-size:11px;
+  color:#000;
+}
+
+.idea-content:hover>header>.icon-stack>.icon-comment{
+  color:#000;
+}
+.idea-content:hover>header>.icon-stack>.icon-stack-base{
+  color:#fff;
+}
+
+
 .user-img {
   float:left;
   margin:5px;

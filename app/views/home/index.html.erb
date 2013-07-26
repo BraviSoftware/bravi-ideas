@@ -7,6 +7,10 @@
 											'data-negative': percentNegative}">
 					<div class="idea-content">
 						<header>
+              <span class="icon-stack pull-right">
+                <i class="icon-comment icon-2x"></i>
+                <i class="icon-stack-base" data-bind="text: comments_amount"></i>
+              </span>
 							<!-- User logo -->
 							<img class="img-polaroid user-img" data-bind="attr: {src: user_image}" />
 							<!-- Idea content -->
@@ -97,7 +101,7 @@
 					data-toggle="tooltip"
 					data-placement="bottom"
 					data-original-title="I would like comment about it.">
-					<i class="icon-comments-alt"></i> Comments
+          <i class="icon-comments-alt"></i> <span data-bind="text: comments_amount"></span> Comments
 				</a>
 				<div class="clear"></div>
 			</div>
