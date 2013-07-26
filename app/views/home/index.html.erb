@@ -39,14 +39,20 @@
 								data-toggle="tooltip"
 							 	data-placement="bottom"
 							 	data-bind="text: percentNegative, tooltip: true,
-							 				attr: {'data-original-title': percentNegative() + '%'},
-							 				style: {'width': percentNegative() + '%'}"></span>
+							 				attr: {'data-original-title': percentNegative() + '% unlike'},
+                      style: {'width': percentNegative() + '%'}, visible: has_votes"></span>
 						<span class="percentage-vote btn-success"
 								data-toggle="tooltip"
 							 	data-placement="bottom"
 							 	data-bind="text: percentPositive, tooltip: true,
-							 				attr: {'data-original-title': percentPositive() + '%'},
-							 				style: {'width': percentPositive() + '%'}"></span>
+							 				attr: {'data-original-title': percentPositive() + '% like'},
+							 				style: {'width': percentPositive() + '%'}, visible: has_votes"></span>
+            <span class="percentage-vote btn-primary"
+								data-toggle="tooltip"
+							 	data-placement="bottom"
+							 	data-bind="text: 0, tooltip: true,
+							 				attr: {'data-original-title': 'Has no votes yet'},
+							 				style: {'width': '100%'}, visible: !has_votes()"></span>
 					</a>
 				</div>
 			</div>

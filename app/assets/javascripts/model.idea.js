@@ -26,7 +26,13 @@ BraviIdeas.IdeaModel = (function (dto) {
 	self.getTotal = function(){
 		return self.positive() + self.negative();
 	};
-
+  
+  self.has_votes = ko.observable();
+  
+  self.has_votes_notification = ko.computed(function(){
+    return self.has_votes(self.getTotal() > 0);
+  });
+  
 	self.percentPositive = ko.computed(function(){
 
 		if (self.getTotal() === 0){
