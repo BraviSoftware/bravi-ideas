@@ -290,6 +290,7 @@ ul.nav{
 .idea-description{
   padding: 5px 0;
   min-height: 100px;
+  white-space: pre-wrap;
 }
 
 .do-you-like-bar{
