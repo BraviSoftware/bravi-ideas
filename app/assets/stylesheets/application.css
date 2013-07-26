@@ -260,6 +260,11 @@ ul.nav{
   width: 60px;
 }
 
+#full-idea .user-name{
+  margin: 5px 10px;
+  color: #fff;
+}
+  
 .idea-description{
   padding: 5px 0;
   min-height: 100px;
@@ -310,6 +315,15 @@ ul.nav{
     white-space: pre-wrap;
 }
 
+#full-idea .comment .user-name{
+  margin: 5px 10px 0 10px;
+  clear:both;
+  color:#000;
+}
+
+#full-idea .comment .user-name span{
+  font-size:12px;
+}
 
 .group-comments{
   margin-top: 20px;

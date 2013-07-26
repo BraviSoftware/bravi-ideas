@@ -59,9 +59,13 @@
 				<!-- Idea content -->
 				<h3 data-bind="text: title"></h3>
 			</header>
+      
+      <div class="user-name">
+        <i class="icon-user"></i>
+        <span data-bind="text: user_name"></span>
+      </div>
 
 			<div class="idea-description" data-bind="text: description"></div>
-
 
       <div class="msg-cant-vote-comment" data-bind="visible: $root.canNotVoteComment">Sign in to vote or comment</div>
 
@@ -109,6 +113,10 @@
 								data-bind="click: $root.removeComment, visible: belongsToCurrentUser(), tooltip: true">×</button>
 						<img class="img-polaroid user-img"  data-bind="attr: {src: user_image}" />
 						<div class="description" data-bind="text: description"></div>
+            <div class="user-name">
+              <i class="icon-user"></i>
+              <span data-bind="text: user_name"></span>
+            </div>
 						<div class="clear"></div>
 					</div>
 				</div>

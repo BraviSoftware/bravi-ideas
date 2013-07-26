@@ -38,7 +38,7 @@ class Idea < ActiveRecord::Base
     user_id = 0 unless user_id.is_a? Integer
     
     select("ideas.id, description, negative, positive, title, 
-                ideas.user_id, image as user_image, 
+                ideas.user_id, name as user_name, image as user_image, 
                 votes.user_id as current_user_id_voted,
                 (positive + negative) as votes_amount,
                 (select count(cm.idea_id) from comments cm where cm.idea_id = ideas.id) as comments_amount").

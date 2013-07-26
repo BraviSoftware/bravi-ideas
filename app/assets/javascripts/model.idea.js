@@ -7,7 +7,8 @@ BraviIdeas.IdeaModel = (function (dto) {
 	self.title = dto.title;
 	self.positive = ko.observable(dto.positive);
 	self.negative = ko.observable(dto.negative);
-	self.user_image = dto.user_image;
+	self.user_name = dto.user_name;
+  self.user_image = dto.user_image;
 	self.current_user_has_voted = (dto.current_user_id_voted && dto.current_user_id_voted > 0);
 	self.current_user_is_the_author = (dto.user_id === BraviIdeas.app().currentUserId());
 	self.path_edit = '/ideas/' + self.id + '/edit';

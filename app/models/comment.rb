@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
 	def self.get_comment_and_its_user_image(comment_id)
 		where(id: comment_id)
 		.joins(:user)
-		.select('comments.*, image as user_image')
+		.select('comments.*, name as user_name, image as user_image')
 		.first
 	end
 end

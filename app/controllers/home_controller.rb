@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 
   # GET /home/comments.json
   def comments
-  	@comments = Comment.where(idea_id: params[:id]).joins(:user).select('comments.*, image as user_image').order('comments.id')
+  	@comments = Comment.where(idea_id: params[:id]).joins(:user).select('comments.*, name as user_name, image as user_image').order('comments.id')
   	respond_with(@comments)
   end
 
