@@ -41,6 +41,13 @@
       <div class="clear"></div>
 			<div id="user_nav">
         <% if current_page?(root_path) %>
+        
+        <span id="amount-ideas" class="pull-left">
+          <i class="icon-lightbulb"></i>
+          <span data-bind="text: amountIdeas"></span>
+          ideas          
+        </span>
+        
         <a id="btn-filter" class="btn btn-link pull-left" href="javascript:;" data-toggle="tooltip"	
             data-placement="right" data-original-title="Sort by" data-bind="tooltip: true">
           <i class="icon-sort-by-attributes-alt"></i>

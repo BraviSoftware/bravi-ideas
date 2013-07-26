@@ -57,19 +57,19 @@ h1, h2, h3, h4{
   -o-transform: translate(0px, -10px);
 }
 
+#logo-header{width:350px; float:left;}
+#menu-header{ float:right;}
+#header-main .masthead{clear:both}
+
 #logo{
   vertical-align: middle;
   width: 50px;
 }
 
-#header-main span {
+#logo-header span {
   margin-top: 0;
   font-size: 12px;
 }
-
-#logo-header{width:350px; float:left;}
-#menu-header{ float:right;}
-#header-main .masthead{clear:both}
 
 #menu-header>ul, #menu-header>a{
   display: inline-block;
@@ -91,6 +91,10 @@ ul.nav{
 
 /* Filter \ Sort Options
 ---------------------------------------*/
+#amount-ideas{
+  line-height: 30px;
+}
+
 #filter-options-bar{
   display:none; 
 }

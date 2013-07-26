@@ -3,6 +3,7 @@ BraviIdeas.ViewModelIdea = (function(){
 	comments = ko.observableArray([]),
 	comment = ko.observable(),
 	selected = ko.observable(),
+  amountIdeas = ko.observable(),
 
 	ideasLoadCompleted = ko.observable(),
       
@@ -55,6 +56,7 @@ BraviIdeas.ViewModelIdea = (function(){
 		}).done(function(data){
 			mapToModel(data, BraviIdeas.IdeaModel);
 			ideas(data);
+      amountIdeas(ideas().length);
 
 			// notify the page is ready
 			ideasLoadCompleted(true); // used just the first time
@@ -238,6 +240,7 @@ BraviIdeas.ViewModelIdea = (function(){
 	};
 
 	var vm = {
+    amountIdeas: amountIdeas,
 		ideasLoading: ideasLoading,
     ideasLoadCompleted: ideasLoadCompleted,
 		canVote: canVote,
