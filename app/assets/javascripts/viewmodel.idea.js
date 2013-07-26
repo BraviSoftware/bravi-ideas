@@ -162,6 +162,7 @@ BraviIdeas.ViewModelIdea = (function(){
 			box.slideUp();
 		}
 		else{
+      box.hide();
 			getComments(selected().id, completed);
 
 			function completed(){
