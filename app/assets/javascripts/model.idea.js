@@ -58,12 +58,20 @@ BraviIdeas.IdeaModel = (function (dto) {
 			self.negative(self.negative() + 1);
 	};
   
+  function getCommentsAmount(){
+    var amount = parseInt(self.comments_amount());
+    if(isNaN(amount)){
+       amount = 0; 
+    }
+    return amount;
+  }
+  
   self.upCommentsAmount = function(){
-    self.comments_amount(self.comments_amount() + 1);
+    self.comments_amount(getCommentsAmount() + 1);
   };
   
   self.downCommentsAmount = function(){
-    self.comments_amount(self.comments_amount() - 1);
+    self.comments_amount(getCommentsAmount() - 1);
   };
 
 	return self;
