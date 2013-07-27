@@ -121,6 +121,9 @@ BraviIdeas.ViewModelIdea = (function(){
 			comment('');
       selected().upCommentsAmount(); 
 			toastr.success('Successfully saved.');
+
+			// notify broadcast
+			notify_server();
 		})
 		.fail(function(){
 			toastr.warning('Comment not saved.');
@@ -235,6 +238,14 @@ BraviIdeas.ViewModelIdea = (function(){
 		});
 	};
 
+	var socket = io.connect('http://localhost:8080/');
+	socket.on('idea-inserted', function(data) {
+		toastr.success(data);
+	});
+	function notify_server() {
+		socket.emit('idea-commented', "new comment!!");
+	}
+
 
 	init = function(){
 		getAll();
@@ -243,12 +254,12 @@ BraviIdeas.ViewModelIdea = (function(){
 	};
 
 	var vm = {
-    amountIdeas: amountIdeas,
+	    amountIdeas: amountIdeas,
 		ideasLoading: ideasLoading,
-    ideasLoadCompleted: ideasLoadCompleted,
+		ideasLoadCompleted: ideasLoadCompleted,
 		canVote: canVote,
 		canNotVoteComment: canNotVoteComment,
-    canComment: canComment,
+		canComment: canComment,
 		ideas: ideas,
 		comments: comments,
 		comment: comment,
@@ -262,7 +273,7 @@ BraviIdeas.ViewModelIdea = (function(){
 		removeComment: removeComment,
 		selected: selected,
 		selectIdea: selectIdea,
-    sort: sort
+	    sort: sort
 	};
 
 	init();
