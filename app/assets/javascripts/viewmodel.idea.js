@@ -123,7 +123,10 @@ BraviIdeas.ViewModelIdea = (function(){
 			toastr.success('Successfully saved.');
 
 			// notify broadcast
-			BraviIdeas.notification.notify_new_comment(selected().id, model.id);
+			BraviIdeas.notification.notify_new_comment({
+				ideaId: selected().id, 
+				commentModel: model
+			});
 		})
 		.fail(function(){
 			toastr.warning('Comment not saved.');
@@ -148,7 +151,10 @@ BraviIdeas.ViewModelIdea = (function(){
 					selected().downCommentsAmount(); 
 
 					// notify broadcast
-					BraviIdeas.notification.notify_remove_comment(selected().id, commentToDelete.id);
+					BraviIdeas.notification.notify_remove_comment({
+						ideaId: selected().id, 
+						commentModel: commentToDelete
+					});
 					break;
 				}        
 			};
@@ -280,4 +286,5 @@ BraviIdeas.ViewModelIdea = (function(){
 var mainViewModel = new BraviIdeas.ViewModelIdea();
 ko.applyBindings(mainViewModel);
 
-BraviIdeas.notification = new IdeaNotification(mainViewModel);
+BraviIdeas.notification = new IdeaNotification(mainViewModel, 
+	BraviIdeas.CommentModel);
