@@ -3,11 +3,11 @@ BraviIdeas.ViewModelIdea = (function(){
 	comments = ko.observableArray([]),
 	comment = ko.observable(),
 	selected = ko.observable(),
-  amountIdeas = ko.observable(),
+	amountIdeas = ko.observable(),
 
 	ideasLoadCompleted = ko.observable(),
-      
-  ideasLoading = ko.observable(true),
+
+	ideasLoading = ko.observable(true),
 
 	canVote = ko.computed(function(){
 		return BraviIdeas.app().isUserAuthenticated() && selected() && !selected().current_user_has_voted;
@@ -44,28 +44,28 @@ BraviIdeas.ViewModelIdea = (function(){
 		.prop('disabled', true)
 		.off('click');
 	},
- 
+
 	getAll = function(sort){
-    ideasLoading(true);
-    hideIdeaOpen();
-    
-    var sortType = sort ? ('?sort_type=' + sort) : '';
+		ideasLoading(true);
+		hideIdeaOpen();
+
+		var sortType = sort ? ('?sort_type=' + sort) : '';
 		$.ajax({
 			type    : 'GET',
 			url     : '/home/ideas.json' + sortType
 		}).done(function(data){
 			mapToModel(data, BraviIdeas.IdeaModel);
 			ideas(data);
-      amountIdeas(ideas().length);
+			amountIdeas(ideas().length);
 
 			// notify the page is ready
 			ideasLoadCompleted(true); // used just the first time
-      ideasLoading(false);
+			ideasLoading(false);
 		});
-    
-    function hideIdeaOpen(){
-      $('#wrapper-full-idea').slideUp();
-    }
+
+		function hideIdeaOpen(){
+			$('#wrapper-full-idea').slideUp();
+		}
 	},
 
 	getComments = function(idea, callback){
@@ -119,11 +119,11 @@ BraviIdeas.ViewModelIdea = (function(){
 			var model = new BraviIdeas.CommentModel(data);
 			comments.push(model);
 			comment('');
-      selected().upCommentsAmount(); 
+			selected().upCommentsAmount(); 
 			toastr.success('Successfully saved.');
 
 			// notify broadcast
-			notify_server();
+			BraviIdeas.notification.notify_new_comment(selected().id, model.id);
 		})
 		.fail(function(){
 			toastr.warning('Comment not saved.');
@@ -145,7 +145,10 @@ BraviIdeas.ViewModelIdea = (function(){
 			for (var i = 0; i < comments().length; i++) {
 				if(comments()[i].id === commentToDelete.id){
 					comments.splice(i, 1);
-          selected().downCommentsAmount(); 
+					selected().downCommentsAmount(); 
+
+					// notify broadcast
+					BraviIdeas.notification.notify_remove_comment(selected().id, commentToDelete.id);
 					break;
 				}        
 			};
@@ -165,7 +168,7 @@ BraviIdeas.ViewModelIdea = (function(){
 			box.slideUp();
 		}
 		else{
-      box.hide();
+			box.hide();
 			getComments(selected().id, completed);
 
 			function completed(){
@@ -186,13 +189,13 @@ BraviIdeas.ViewModelIdea = (function(){
 			};
 		}
 	},
-     
-  sort = ko.observable(),
-      
-  changedSort = ko.computed(function(){
-    var sortType = sort();
-    getAll(sortType);
-  }),
+
+	sort = ko.observable(),
+
+	changedSort = ko.computed(function(){
+		var sortType = sort();
+		getAll(sortType);
+	}),
 
 	ideasGroupRows = ko.computed(function () {
 
@@ -232,21 +235,13 @@ BraviIdeas.ViewModelIdea = (function(){
 		bindSlideUpDownBox('.btn-comments', function(){
 			return $('.group-comments');
 		});
-    
-    bindSlideUpDownBox('#btn-filter', function(){
+
+		bindSlideUpDownBox('#btn-filter', function(){
 			return $('#filter-options-bar');
 		});
 	};
 
-	var socket = io.connect('http://localhost:8080/');
-	socket.on('idea-inserted', function(data) {
-		toastr.success(data);
-	});
-	function notify_server() {
-		socket.emit('idea-commented', "new comment!!");
-	}
-
-
+	
 	init = function(){
 		getAll();
 
@@ -254,7 +249,7 @@ BraviIdeas.ViewModelIdea = (function(){
 	};
 
 	var vm = {
-	    amountIdeas: amountIdeas,
+		amountIdeas: amountIdeas,
 		ideasLoading: ideasLoading,
 		ideasLoadCompleted: ideasLoadCompleted,
 		canVote: canVote,
@@ -273,7 +268,7 @@ BraviIdeas.ViewModelIdea = (function(){
 		removeComment: removeComment,
 		selected: selected,
 		selectIdea: selectIdea,
-	    sort: sort
+		sort: sort
 	};
 
 	init();
@@ -282,4 +277,7 @@ BraviIdeas.ViewModelIdea = (function(){
 });
 
 // Bind to view
-ko.applyBindings(new BraviIdeas.ViewModelIdea());
+var mainViewModel = new BraviIdeas.ViewModelIdea();
+ko.applyBindings(mainViewModel);
+
+BraviIdeas.notification = new IdeaNotification(mainViewModel);

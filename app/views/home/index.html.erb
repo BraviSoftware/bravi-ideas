@@ -3,144 +3,144 @@
 		<div class="row-fluid" data-bind="foreach: $data">
 			<div class="span4">
 				<div class="idea" data-bind="attr: {'data-idea': id,
-											'data-positive': percentPositive,
-											'data-negative': percentNegative}">
-					<div class="idea-content">
-						<header>
-              <span class="icon-stack pull-right">
-                <i class="icon-comment icon-2x"></i>
-                <i class="icon-stack-base" data-bind="text: comments_amount"></i>
-              </span>
-							<!-- User logo -->
-							<img class="img-polaroid user-img" data-bind="attr: {src: user_image}" />
-							<!-- Idea content -->
-							<a href="#" data-bind="click: $root.selectIdea"><h3 data-bind="text: title"></h3></a>
-						</header>
+				'data-positive': percentPositive,
+				'data-negative': percentNegative}">
+				<div class="idea-content">
+					<header>
+						<span class="icon-stack pull-right">
+							<i class="icon-comment icon-2x"></i>
+							<i class="icon-stack-base" data-bind="text: comments_amount"></i>
+						</span>
+						<!-- User logo -->
+						<img class="img-polaroid user-img" data-bind="attr: {src: user_image}" />
+						<!-- Idea content -->
+						<a href="#" data-bind="click: $root.selectIdea"><h3 data-bind="text: title"></h3></a>
+					</header>
 
-						<div class="idea-description" data-bind="text: getPreviewDescription()"></div>
+					<div class="idea-description" data-bind="text: getPreviewDescription()"></div>
 
-						<div class="percentage-votes-values">
-							<ul>
-								<li>
-									<i class="icon-thumbs-down"></i>
-									<span class="amount-vote" data-bind="text: negative"></span>
-									<em class="amount-vote-percentage" data-bind="text: '(' + percentNegative() + '%)'"></em>
-								</li>
-								<li>
-									<i class="icon-thumbs-up"></i>
-									<span class="amount-vote" data-bind="text: positive"></span>
-									<em class="amount-vote-percentage" data-bind="text: '(' + percentPositive() + '%)'"></em>
-								</li>
-							</ul>
-						</div>
+					<div class="percentage-votes-values">
+						<ul>
+							<li>
+								<i class="icon-thumbs-down"></i>
+								<span class="amount-vote" data-bind="text: negative"></span>
+								<em class="amount-vote-percentage" data-bind="text: '(' + percentNegative() + '%)'"></em>
+							</li>
+							<li>
+								<i class="icon-thumbs-up"></i>
+								<span class="amount-vote" data-bind="text: positive"></span>
+								<em class="amount-vote-percentage" data-bind="text: '(' + percentPositive() + '%)'"></em>
+							</li>
+						</ul>
 					</div>
-					<a href="#" class="percentage-votes-bar">
-						<span class="percentage-vote btn-danger"
-								data-toggle="tooltip"
-							 	data-placement="bottom"
-							 	data-bind="text: percentNegative, tooltip: true,
-							 				attr: {'data-original-title': percentNegative() + '% unlike'},
-                      style: {'width': percentNegative() + '%'}, visible: has_votes"></span>
-						<span class="percentage-vote btn-success"
-								data-toggle="tooltip"
-							 	data-placement="bottom"
-							 	data-bind="text: percentPositive, tooltip: true,
-							 				attr: {'data-original-title': percentPositive() + '% like'},
-							 				style: {'width': percentPositive() + '%'}, visible: has_votes"></span>
-            <span class="percentage-vote btn-primary"
-								data-toggle="tooltip"
-							 	data-placement="bottom"
-							 	data-bind="text: 0, tooltip: true,
-							 				attr: {'data-original-title': 'Has no votes yet'},
-							 				style: {'width': '100%'}, visible: !has_votes()"></span>
-					</a>
 				</div>
+				<a href="#" class="percentage-votes-bar">
+					<span class="percentage-vote btn-danger"
+					data-toggle="tooltip"
+					data-placement="bottom"
+					data-bind="text: percentNegative, tooltip: true,
+					attr: {'data-original-title': percentNegative() + '% unlike'},
+					style: {'width': percentNegative() + '%'}, visible: has_votes"></span>
+					<span class="percentage-vote btn-success"
+					data-toggle="tooltip"
+					data-placement="bottom"
+					data-bind="text: percentPositive, tooltip: true,
+					attr: {'data-original-title': percentPositive() + '% like'},
+					style: {'width': percentPositive() + '%'}, visible: has_votes"></span>
+					<span class="percentage-vote btn-primary"
+					data-toggle="tooltip"
+					data-placement="bottom"
+					data-bind="text: 0, tooltip: true,
+					attr: {'data-original-title': 'Has no votes yet'},
+					style: {'width': '100%'}, visible: !has_votes()"></span>
+				</a>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<div id="wrapper-full-idea" data-bind="with: $root.selected">
-		<div id="arrow"></div>
-		<div id="full-idea" data-bind="attr: {'data-idea': id }">
-      <header>
+<div id="wrapper-full-idea" data-bind="with: $root.selected">
+	<div id="arrow"></div>
+	<div id="full-idea" data-bind="attr: {'data-idea': id }">
+		<header>
 			<button id="close-idea" type="button" class="close">×</button>
-				<!-- User logo -->
-				<img class="img-polaroid user-img" data-bind="attr: {src: user_image}" />
-				<!-- Idea content -->
-				<h3 data-bind="text: title"></h3>
-			</header>
-      
-      <div class="user-name">
-        <i class="icon-user"></i>
-        <span data-bind="text: user_name"></span>
-      </div>
+			<!-- User logo -->
+			<img class="img-polaroid user-img" data-bind="attr: {src: user_image}" />
+			<!-- Idea content -->
+			<h3 data-bind="text: title"></h3>
+		</header>
 
-			<div class="idea-description" data-bind="text: description"></div>
+		<div class="user-name">
+			<i class="icon-user"></i>
+			<span data-bind="text: user_name"></span>
+		</div>
 
-      <div class="msg-cant-vote-comment" data-bind="visible: $root.canNotVoteComment">Sign in to vote or comment</div>
+		<div class="idea-description" data-bind="text: description"></div>
 
-			<div class="do-you-like-bar">
-				<span>Do you like?</span>
+		<div class="msg-cant-vote-comment" data-bind="visible: $root.canNotVoteComment">Sign in to vote or comment</div>
 
-				<!-- Buttons thumbs -->
-				<button type="button" class="idea-like btn btn-success"
+		<div class="do-you-like-bar">
+			<span>Do you like?</span>
+
+			<!-- Buttons thumbs -->
+			<button type="button" class="idea-like btn btn-success"
 					data-bind="click: $root.like, tooltip: true, enable: $root.canVote"
 					data-toggle="tooltip"
 					data-placement="bottom"
 					data-original-title="Yep, nice idea!">
-					<i class="icon-thumbs-up" data-bind="text: positive"></i>
-				</button>
-				<button type="button" class="idea-unlike btn btn-danger"
+				<i class="icon-thumbs-up" data-bind="text: positive"></i>
+			</button>
+			<button type="button" class="idea-unlike btn btn-danger"
 					data-bind="click: $root.unlike, tooltip: true, enable: $root.canVote"
 					data-toggle="tooltip"
 					data-placement="bottom"
 					data-original-title="Nope, bad idea!">
-					<i class="icon-thumbs-down" data-bind="text: negative"></i>
-				</button>
+				<i class="icon-thumbs-down" data-bind="text: negative"></i>
+			</button>
 
-				<a data-bind="visible: current_user_is_the_author, attr: {href: path_edit }" class="btn">
-					<i class="icon-pencil"></i> Edit
-				</a>
+			<a data-bind="visible: current_user_is_the_author, attr: {href: path_edit }" class="btn">
+				<i class="icon-pencil"></i> Edit
+			</a>
 
-				<a href="#" class="btn-comments"
-					data-bind="tooltip: true"
-					data-toggle="tooltip"
-					data-placement="bottom"
-					data-original-title="I would like comment about it.">
-          <i class="icon-comments-alt"></i> <span data-bind="text: comments_amount"></span> Comments
-				</a>
-				<div class="clear"></div>
+	<a href="#" class="btn-comments"
+	data-bind="tooltip: true"
+	data-toggle="tooltip"
+	data-placement="bottom"
+	data-original-title="I would like comment about it.">
+		<i class="icon-comments-alt"></i> <span data-bind="text: comments_amount"></span> Comments
+	</a>
+	<div class="clear"></div>
+</div>
+
+<div class="group-comments">
+
+	<div id="comments" data-bind="foreach: $root.comments">
+		<div class="comment">
+			<button type="button" class="close"
+			data-toggle="tooltip"
+			data-placement="bottom"
+			data-original-title="remove"
+			data-bind="click: $root.removeComment, visible: belongsToCurrentUser(), tooltip: true">×</button>
+			<img class="img-polaroid user-img"  data-bind="attr: {src: user_image}" />
+			<div class="description" data-bind="text: description"></div>
+			<div class="user-name">
+				<i class="icon-user"></i>
+				<span data-bind="text: user_name"></span>
 			</div>
-
-			<div class="group-comments">
-
-				<div id="comments" data-bind="foreach: $root.comments">
-					<div class="comment">
-						<button type="button" class="close"
-								data-toggle="tooltip"
-							 	data-placement="bottom"
-							 	data-original-title="remove"
-								data-bind="click: $root.removeComment, visible: belongsToCurrentUser(), tooltip: true">×</button>
-						<img class="img-polaroid user-img"  data-bind="attr: {src: user_image}" />
-						<div class="description" data-bind="text: description"></div>
-            <div class="user-name">
-              <i class="icon-user"></i>
-              <span data-bind="text: user_name"></span>
-            </div>
-						<div class="clear"></div>
-					</div>
-				</div>
-
-				<div class="new-comment" data-bind="visible: $root.canComment">
-					<h4>What do you think?</h4>
-					<textarea placeholder="I think..." data-bind="value: $root.comment"></textarea>
-					<br>
-					<button type="button" class="btn btn-primary btn-small" data-bind="click: $root.addComment">
-						<i class="icon-comment-alt"> Comment</i>
-					</button>
-				</div>
-
-			</div>
+			<div class="clear"></div>
 		</div>
 	</div>
+
+	<div class="new-comment" data-bind="visible: $root.canComment">
+		<h4>What do you think?</h4>
+		<textarea placeholder="I think..." data-bind="value: $root.comment"></textarea>
+		<br>
+		<button type="button" class="btn btn-primary btn-small" data-bind="click: $root.addComment">
+			<i class="icon-comment-alt"> Comment</i>
+		</button>
+	</div>
+
+</div>
+</div>
+</div>
 </section>
