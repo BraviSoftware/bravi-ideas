@@ -1,288 +1,292 @@
 BraviIdeas.ViewModelIdea = (function(IdeaNotification){
-  var ideaNotification,
-  ideas = ko.observableArray([]),
-  comments = ko.observableArray([]),
-  comment = ko.observable(),
-  selected = ko.observable(),
-  amountIdeas = ko.observable(),
+	var ideaNotification,
+	ideas = ko.observableArray([]),
+	comments = ko.observableArray([]),
+	comment = ko.observable(),
+	selected = ko.observable(),
+	amountIdeas = ko.observable(),
 
-  ideasLoadCompleted = ko.observable(),
+	ideasLoadCompleted = ko.observable(),
 
-  ideasLoading = ko.observable(true),
+	ideasLoading = ko.observable(true),
 
-  canVote = ko.computed(function(){
-    return BraviIdeas.app().isUserAuthenticated() && selected() && !selected().current_user_has_voted;
-  }),
+	canVote = ko.computed(function(){
+		return BraviIdeas.app().isUserAuthenticated() && selected() && !selected().current_user_has_voted;
+	}),
 
-  canNotVoteComment = ko.computed(function(){
-    return !BraviIdeas.app().isUserAuthenticated() || !selected();
-  }),
+	canNotVoteComment = ko.computed(function(){
+		return !BraviIdeas.app().isUserAuthenticated() || !selected();
+	}),
 
-  canComment = ko.computed(function(){
-    return BraviIdeas.app().isUserAuthenticated() && selected();
-  }),
+	canComment = ko.computed(function(){
+		return BraviIdeas.app().isUserAuthenticated() && selected();
+	}),
 
-  like = function () {
-    vote('like', voteCallback, this);
-  },
+	like = function () {
+		vote('like', voteCallback, this);
+	},
 
-  unlike = function () {
-    vote('unlike', voteCallback, this);
-  },
+	unlike = function () {
+		vote('unlike', voteCallback, this);
+	},
 
-  getIdeaId = function (elment) {
-    return selected() && selected().id;
-  },
+	getIdeaId = function (elment) {
+		return selected() && selected().id;
+	},
 
-  voteCallback = function (voteType, idea) {
-    idea.vote(voteType);
-    disableVoteButtons();
-  },
+	voteCallback = function (voteType, idea) {
+		idea.vote(voteType);
+		disableVoteButtons();
+	},
 
-  disableVoteButtons = function () {
-    $('.idea-like, .idea-unlike', '#full-idea')
-    .addClass('disabled')
-    .prop('disabled', true)
-    .off('click');
-  },
+	disableVoteButtons = function () {
+		$('.idea-like, .idea-unlike', '#full-idea')
+		.addClass('disabled')
+		.prop('disabled', true)
+		.off('click');
+	},
 
-  getAll = function(sort){
-    ideasLoading(true);
-    hideIdeaOpen();
+	getAll = function(sort){
+		ideasLoading(true);
+		hideIdeaOpen();
 
-    var sortType = sort ? ('?sort_type=' + sort) : '';
-    $.ajax({
-      type    : 'GET',
-      url     : '/home/ideas.json' + sortType
-    }).done(function(data){
-      mapToModel(data, BraviIdeas.IdeaModel);
-      ideas(data);
-      amountIdeas(ideas().length);
+		var sortType = sort ? ('?sort_type=' + sort) : '';
+		$.ajax({
+			type    : 'GET',
+			url     : '/home/ideas.json' + sortType
+		}).done(function(data){
+			mapToModel(data, BraviIdeas.IdeaModel);
+			ideas(data);
+			amountIdeas(ideas().length);
 
-      // notify the page is ready
-      ideasLoadCompleted(true); // used just the first time
-      ideasLoading(false);
-    });
+			// notify the page is ready
+			ideasLoadCompleted(true); // used just the first time
+			ideasLoading(false);
+		});
 
-    function hideIdeaOpen(){
-      $('#wrapper-full-idea').slideUp();
-    }
-  },
+		function hideIdeaOpen(){
+			$('#wrapper-full-idea').slideUp();
+		}
+	},
 
-  getComments = function(idea, callback){
-    $.ajax({
-      type    : 'GET',
-      url     : '/home/comments/' + idea + '.json'
-    }).done(function(data){
-      mapToModel(data, BraviIdeas.CommentModel);
-      comments(data);
-      callback();
-    });
-  },
+	getComments = function(idea, callback){
+		$.ajax({
+			type    : 'GET',
+			url     : '/home/comments/' + idea + '.json'
+		}).done(function(data){
+			mapToModel(data, BraviIdeas.CommentModel);
+			comments(data);
+			callback();
+		});
+	},
 
-  mapToModel = function (items, modelType){
-    for(var i = 0; i < items.length; i++){
-      // override dto for a proper model
-      items[i] = new modelType(items[i]);
-    };
-  },
+	mapToModel = function (items, modelType){
+		for(var i = 0; i < items.length; i++){
+			// override dto for a proper model
+			items[i] = new modelType(items[i]);
+		};
+	},
 
-  vote = function (type, callback, idea) {
-    $.ajax({
-      type    : 'PUT',
-      url     : '/ideas/' + idea.id + '/' + type + '.json'
-    }).done(function(){
-      callback(type, idea);
+	vote = function (type, callback, idea) {
+		$.ajax({
+			type    : 'PUT',
+			url     : '/ideas/' + idea.id + '/' + type + '.json'
+		}).done(function(){
+			callback(type, idea);
+			selected().current_user_has_voted = BraviIdeas.app().currentUserId();
 
-      selected().current_user_has_voted = BraviIdeas.app().currentUserId();
-    }).fail(function(){
-      toastr.warning('<strong>Really, again?!</strong><br>You alredy voted on it.');
-    });
-  },
+			//notify users
+			BraviIdeas.notification.notify_new_comment({
+				ideaId: idea.id, 
+				voteType: type
+			});
 
-  saveNewComment = function (description, idea) {
-    return $.ajax({
-      type    : 'POST',
-      data  : { 'description': description, 'idea_id':  idea },
-      url     : '/home/add_comment.json',
-      dataType : 'json'
-    });
-  },
+		}).fail(function(){
+			toastr.warning('<strong>Really, again?!</strong><br>You alredy voted on it.');
+		});
+	},
 
-  addComment = function(){
-    if(!comment()){
-      toastr.warning('<strong>Really?!</strong><br>Commenting without a text?! Don\'t do that.');
-      return;
-    }
+	saveNewComment = function (description, idea) {
+		return $.ajax({
+			type    : 'POST',
+			data 	: { 'description': description, 'idea_id':  idea },
+			url     : '/home/add_comment.json',
+			dataType : 'json'
+		});
+	},
 
-    $.when(saveNewComment(comment(), selected().id))
-    .done(function(data){
-      var model = new BraviIdeas.CommentModel(data);
-      comments.push(model);
-      comment('');
-      selected().upCommentsAmount();
-      toastr.success('Successfully saved.');
+	addComment = function(){
+		if(!comment()){
+			toastr.warning('<strong>Really?!</strong><br>Commenting without a text?! Don\'t do that.');
+			return;
+		}
 
-      // notify broadcast
-      ideaNotification.notify_new_comment({
-        ideaId: selected().id,
-        commentModel: model
-      });
-    })
-    .fail(function(){
-      toastr.warning('Comment not saved.');
-    });
-  },
+		$.when(saveNewComment(comment(), selected().id))
+		.done(function(data){
+			var model = new BraviIdeas.CommentModel(data);
+			comments.push(model);
+			comment('');
+			selected().upCommentsAmount(); 
+			toastr.success('Successfully saved.');
 
-  deleteComment = function (comment) {
-    return $.ajax({
-      type    : 'DELETE',
-      url     : '/home/remove_comment/' + comment.id + '.json'
-    });
-  },
+			// notify broadcast
+			BraviIdeas.notification.notify_new_comment({
+				ideaId: selected().id, 
+				commentModel: data
+			});
+		})
+		.fail(function(){
+			toastr.warning('Comment not saved.');
+		});
+	},
 
-  removeComment = function(){
-    var commentToDelete = this;
-    $.when(deleteComment(commentToDelete)).done(completed);
+	deleteComment = function (comment) {
+		return $.ajax({
+			type    : 'DELETE',
+			url     : '/home/remove_comment/' + comment.id + '.json'
+		});
+	},
 
-    function completed(){
-      for (var i = 0; i < comments().length; i++) {
-        if(comments()[i].id === commentToDelete.id){
-          comments.splice(i, 1);
-          selected().downCommentsAmount();
+	removeComment = function(){
+		var commentToDelete = this;
+		$.when(deleteComment(commentToDelete)).done(completed);
 
-          // notify broadcast
-          ideaNotification.notify_remove_comment({
-            ideaId: selected().id,
-            commentModel: commentToDelete
-          });
-          break;
-        }
-      };
+		function completed(){
+			for (var i = 0; i < comments().length; i++) {
+				if(comments()[i].id === commentToDelete.id){
+					comments.splice(i, 1);
+					selected().downCommentsAmount(); 
 
-      toastr.success('Successfully removed.');
-    }
-  },
+					// notify broadcast
+					BraviIdeas.notification.notify_remove_comment({
+						ideaId: selected().id, 
+						commentModel: commentToDelete
+					});
+					break;
+				}        
+			};
 
-  selectIdea = function(item){
-    var newItem = !selected() || (item.id !== selected().id);
+			toastr.success('Successfully removed.');
+		}
+	},
 
-    selected(item);
+	selectIdea = function(item){
+		var newItem = !selected() || (item.id !== selected().id);
 
-    var box = $('#wrapper-full-idea');
+		selected(item);
 
-    if(box.is(':visible') && !newItem){
-      box.slideUp();
-    }
-    else{
-      box.hide();
-      getComments(selected().id, completed);
+		var box = $('#wrapper-full-idea');
 
-      function completed(){
-        positionFullIdeaBox();
-        box.slideDown();
+		if(box.is(':visible') && !newItem){
+			box.slideUp();
+		}
+		else{
+			box.hide();
+			getComments(selected().id, completed);
 
-        $(window).on('resize', positionFullIdeaBox);
+			function completed(){
+				positionFullIdeaBox();
+				box.slideDown();
 
-        function positionFullIdeaBox(){
-          var boxPreview = $('.idea[data-idea="' + selected().id + '"]');
-          var box = $('#wrapper-full-idea');
-          var position = boxPreview.position();
+				$(window).on('resize', positionFullIdeaBox);
 
-          $('#arrow').css('margin-left', (position.left + 20) + 'px');
+				function positionFullIdeaBox(){
+					var boxPreview = $('.idea[data-idea="' + selected().id + '"]');
+					var box = $('#wrapper-full-idea');
+					var position = boxPreview.position();
 
-          box.css('top', (boxPreview.height() + position.top + 10) + 'px');
-        }
-      };
-    }
-  },
+					$('#arrow').css('margin-left', (position.left + 20) + 'px');
 
-  sort = ko.observable(),
+					box.css('top', (boxPreview.height() + position.top + 10) + 'px');
+				}
+			};
+		}
+	},
 
-  changedSort = ko.computed(function(){
-    var sortType = sort();
-    getAll(sortType);
-  }),
+	sort = ko.observable(),
 
-  ideasGroupRows = ko.computed(function () {
+	changedSort = ko.computed(function(){
+		var sortType = sort();
+		getAll(sortType);
+	}),
 
-    var items =  ideas(),
-    result = [];
-    for (var i = 0; i < items.length; i += 3) {
-      var row = [];
-      for (var j = 0; j < 3; ++j) {
-        if (items[i + j]) {
-          row.push(items[i + j]);
-        }
-      }
-      result.push(row);
-    }
-    return result;
-  }),
+	ideasGroupRows = ko.computed(function () {
 
-  bindDOMEvents = function(){
-    function bindSlideUpDownBox(selector, getBoxFunc){
-      $(document).on('click', selector, function(e) {
-        var box = getBoxFunc(this);
+		var items =  ideas(),
+		result = [];
+		for (var i = 0; i < items.length; i += 3) {
+			var row = [];
+			for (var j = 0; j < 3; ++j) {
+				if (items[i + j]) {
+					row.push(items[i + j]);
+				}
+			}
+			result.push(row);
+		}
+		return result;
+	}),
 
-        box.is(':visible') ? box.slideUp() : box.slideDown();
+	bindDOMEvents = function(){
+		function bindSlideUpDownBox(selector, getBoxFunc){
+			$(document).on('click', selector, function(e) {
+				var box = getBoxFunc(this);
 
-        e.preventDefault();
-      });
-    }
+				box.is(':visible') ? box.slideUp() : box.slideDown();
 
-    bindSlideUpDownBox('.percentage-votes-bar', function(that){
-      return $(that).prev('.idea-content').find('.percentage-votes-values');
-    });
+				e.preventDefault();
+			});
+		}
 
-    bindSlideUpDownBox('#close-idea', function(that){
-      return $('#wrapper-full-idea');
-    });
+		bindSlideUpDownBox('.percentage-votes-bar', function(that){
+			return $(that).prev('.idea-content').find('.percentage-votes-values');
+		});
 
-    bindSlideUpDownBox('.btn-comments', function(){
-      return $('.group-comments');
-    });
+		bindSlideUpDownBox('#close-idea', function(that){
+			return $('#wrapper-full-idea');
+		});
 
-    bindSlideUpDownBox('#btn-filter', function(){
-      return $('#filter-options-bar');
-    });
-  };
+		bindSlideUpDownBox('.btn-comments', function(){
+			return $('.group-comments');
+		});
 
+		bindSlideUpDownBox('#btn-filter', function(){
+			return $('#filter-options-bar');
+		});
+	};
 
-  init = function(){
-    getAll();
+	
+	init = function(){
+		getAll();
 
-    bindDOMEvents();
+		bindDOMEvents();
+	};
 
-    ideaNotification = new IdeaNotification(vm, BraviIdeas.CommentModel);
-  };
+	var vm = {
+		amountIdeas: amountIdeas,
+		ideasLoading: ideasLoading,
+		ideasLoadCompleted: ideasLoadCompleted,
+		canVote: canVote,
+		canNotVoteComment: canNotVoteComment,
+		canComment: canComment,
+		ideas: ideas,
+		comments: comments,
+		comment: comment,
+		like: like,
+		unlike: unlike,
+		getIdeaId: getIdeaId,
+		voteCallback: voteCallback,
+		disableVoteButtons: disableVoteButtons,
+		ideasGroupRows: ideasGroupRows,
+		addComment: addComment,
+		removeComment: removeComment,
+		selected: selected,
+		selectIdea: selectIdea,
+		sort: sort
+	};
 
-  var vm = {
-    amountIdeas: amountIdeas,
-    ideasLoading: ideasLoading,
-    ideasLoadCompleted: ideasLoadCompleted,
-    canVote: canVote,
-    canNotVoteComment: canNotVoteComment,
-    canComment: canComment,
-    ideas: ideas,
-    comments: comments,
-    comment: comment,
-    like: like,
-    unlike: unlike,
-    getIdeaId: getIdeaId,
-    voteCallback: voteCallback,
-    disableVoteButtons: disableVoteButtons,
-    ideasGroupRows: ideasGroupRows,
-    addComment: addComment,
-    removeComment: removeComment,
-    selected: selected,
-    selectIdea: selectIdea,
-    sort: sort
-  };
+	init();
 
-  init();
-
-  return vm;
+	return vm;
 });
 
 // Bind to view
