@@ -1,21 +1,25 @@
-BraviIdeas.IdeaNotification = (function (viewModel, commentModelFunction) {
-  var notify_new_comment = function (ideaId, commentId) {
-    if(connection.socket.connected)
-      connection.emit('idea-new-comment', ideaId);
-  },
-  notify_remove_comment = function(ideaId, commentId) {
-    if(connection.socket.connected)
-      connection.emit('idea-comment-removed', ideaId);
-  },
-  notify_rate_like = function(ideaId) {
-    if(connection.socket.connected)
-      connection.emit('idea-rate-like');
-  },
-  notify_rate_dislike = function(ideaId) {
-    if(connection.socket.connected)
-      connection.emit('idea-rate-dislike');
-  },
-  connection = arguments[2] || getSocketIoConnection();
+BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
+  var notify_new_comment = function (data) {
+        if(connection.socket.connected)
+          connection.emit('idea-new-comment', data);
+      },
+      notify_remove_comment = function(data) {
+        if(connection.socket.connected)
+          connection.emit('idea-comment-removed', data);
+      },
+      notify_idea_rate = function(data) {
+        if(connection.socket.connected)
+          connection.emit('idea-rate', data);
+      },
+      notify_new_idea = function(data) {
+        if(connection.socket.connected)
+          connection.emit('new-idea');
+      },
+      notify_remove_idea = function(data) {
+        if(connection.socket.connected)
+          connection.emit('idea-removed');
+      }
+      connection = arguments[2] || getSocketIoConnection();
 
   function getSocketIoConnection() {
     return io.connect('http://localhost:8080/');
@@ -23,16 +27,17 @@ BraviIdeas.IdeaNotification = (function (viewModel, commentModelFunction) {
 
   connection.on('idea-new-comment', function (data) {   
     if (viewModel.selected() && viewModel.selected().id === data.ideaId) {
-      viewModel.comments.push(commentModelFunction(data.commentModel));
+      var model = new BraviIdeas.CommentModel(data.commentModel);
+      viewModel.comments.push(model);
     }
-    else {
-      $(viewModel.ideas()).each(function(index, item) {
-        if (item.id === data.ideaId) {
-          item.upCommentsAmount();
-        }
-      });
-    }
+
+    $(viewModel.ideas()).each(function(index, item) {
+      if (item.id === data.ideaId) {
+        item.upCommentsAmount();
+      }
+    });
   });
+
   connection.on('idea-comment-removed', function (data) {
     if (viewModel.selected() && viewModel.selected().id === data.ideaId) {
       $.each(viewModel.comments(), function (index, item) {
@@ -52,9 +57,27 @@ BraviIdeas.IdeaNotification = (function (viewModel, commentModelFunction) {
     }
   });
 
+  connection.on('idea-rate', function (data) {
+    $.each(viewModel.ideas(), function (index, item) {
+        if (item.id === data.ideaId) {
+          item.vote(data.voteType);
+          return;
+        }
+    });
+  });
+
+  connection.on('new-idea', function (data) {
+    //TODO: update viewmodel with new idea
+  });
+
+  connection.on('idea-removed', function (data) {
+    //TODO: remove idea from view model, treat if it is selected
+  });
+
   return {
     notify_new_comment: notify_new_comment,
-    notify_remove_comment: notify_remove_comment
+    notify_remove_comment: notify_remove_comment,
+    notify_idea_rate: notify_idea_rate
   };
 
-});  
+};

@@ -1,6 +1,5 @@
-BraviIdeas.ViewModelIdea = (function(IdeaNotification){
-	var ideaNotification,
-	ideas = ko.observableArray([]),
+BraviIdeas.ViewModelIdea = (function(){
+	var ideas = ko.observableArray([]),
 	comments = ko.observableArray([]),
 	comment = ko.observable(),
 	selected = ko.observable(),
@@ -96,7 +95,7 @@ BraviIdeas.ViewModelIdea = (function(IdeaNotification){
 			selected().current_user_has_voted = BraviIdeas.app().currentUserId();
 
 			//notify users
-			BraviIdeas.notification.notify_new_comment({
+			BraviIdeas.IdeaNotificationInstance.notify_idea_rate({
 				ideaId: idea.id, 
 				voteType: type
 			});
@@ -130,9 +129,9 @@ BraviIdeas.ViewModelIdea = (function(IdeaNotification){
 			toastr.success('Successfully saved.');
 
 			// notify broadcast
-			BraviIdeas.notification.notify_new_comment({
+			BraviIdeas.IdeaNotificationInstance.notify_new_comment({
 				ideaId: selected().id, 
-				commentModel: data
+				commentModel: model
 			});
 		})
 		.fail(function(){
@@ -158,7 +157,7 @@ BraviIdeas.ViewModelIdea = (function(IdeaNotification){
 					selected().downCommentsAmount(); 
 
 					// notify broadcast
-					BraviIdeas.notification.notify_remove_comment({
+					BraviIdeas.IdeaNotificationInstance.notify_remove_comment({
 						ideaId: selected().id, 
 						commentModel: commentToDelete
 					});
@@ -290,5 +289,6 @@ BraviIdeas.ViewModelIdea = (function(IdeaNotification){
 });
 
 // Bind to view
-var mainViewModel = new BraviIdeas.ViewModelIdea(BraviIdeas.IdeaNotification);
+var mainViewModel = new BraviIdeas.ViewModelIdea();
+BraviIdeas.IdeaNotificationInstance = new BraviIdeas.IdeaNotification(mainViewModel, BraviIdeas.CommentModel);
 ko.applyBindings(mainViewModel);
