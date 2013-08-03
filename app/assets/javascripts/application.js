@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require toastr
+//= require socket.io.min
 //= require_self
 //= require_tree .
 
