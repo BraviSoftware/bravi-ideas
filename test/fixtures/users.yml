@@ -2,10 +2,10 @@
 
 one:
   id: 1
-  name: MyString
-  email: MyString
+  name: Jack
+  email: jack_test@test_mailer.com
 
 two:
   id: 2
-  name: MyString
-  email: MyString
+  name: John
+  email: john_test@test_mailer.com
