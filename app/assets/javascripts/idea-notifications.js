@@ -22,7 +22,8 @@ BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
       connection = arguments[2] || getSocketIoConnection();
 
   function getSocketIoConnection() {
-    return io.connect('http://localhost:8080/');
+    //return io.connect('http://localhost:8080/');
+    return io.connect('http://bravi-ideas-notify.herokuapp.com:80/');
   };
 
   connection.on('idea-new-comment', function (data) {   

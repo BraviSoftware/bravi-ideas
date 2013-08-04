@@ -1,7 +1,7 @@
-require 'socketIO'
+require 'SocketIO'
 
 class Messenger
-  def self.send_message!(name, args)
+  def self.send_message()
     begin
       SocketIO.connect('http://localhost:8080', sync: true) do
         after_start do
@@ -13,3 +13,5 @@ class Messenger
     end
   end
 end
+
+Messenger.send_message()
