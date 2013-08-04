@@ -124,6 +124,8 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
+    socketio-client (0.0.3)
+      rest-client
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -161,6 +163,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
+  socketio-client
   sqlite3
   toastr-rails
   twitter-bootstrap-rails

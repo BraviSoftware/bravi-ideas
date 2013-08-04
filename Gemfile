@@ -9,6 +9,7 @@ gem 'font-awesome-rails'
 gem 'better_errors'
 gem 'omniauth-facebook', '1.4.0'
 gem 'toastr-rails'
+gem 'socketio-client'
 
 group :development, :test do
   gem 'sqlite3'
