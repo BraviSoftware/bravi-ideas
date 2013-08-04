@@ -23,19 +23,20 @@ class HomeController < ApplicationController
   # POST /home/add_comment.json
   def add_comment
     if User.exists? session[:user_id]
-  	 @comment = Comment.create({ description: params[:description], user_id: session[:user_id], idea_id: params[:idea_id] })
+      @comment = Comment.create({ description: params[:description], user_id: session[:user_id], idea_id: params[:idea_id] })
+      Thread.new { IdeaMailer.new_comment(@comment).deliver }
     end
 
-  	respond_to do |format|
+    respond_to do |format|
       if @comment.nil?
         format.json { head :unauthorized }
-  		elsif @comment.persisted?
-  			format.json { render json: Comment.get_comment_and_its_user_image(@comment.id), status: :created }
-  		else
-  			format.json { render json: @comment.errors, status: :unprocessable_entity }
-  		end
-  	end
-  end
+      elsif @comment.persisted?
+       format.json { render json: Comment.get_comment_and_its_user_image(@comment.id), status: :created }
+     else
+       format.json { render json: @comment.errors, status: :unprocessable_entity }
+     end
+   end
+ end
 
   # DELETE /home/remove_comment/1.json
   def remove_comment

@@ -5,3 +5,4 @@ before_script: bundle exec rake db:migrate
 script: bundle exec rake test
 notifications:
   email: false
+env: BRAVI_EMAIL_USER="fake_user_email@fake_mail.test"
