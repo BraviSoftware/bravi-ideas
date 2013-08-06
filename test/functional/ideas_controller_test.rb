@@ -5,11 +5,8 @@ class IdeasControllerTest < ActionController::TestCase
   setup do
     @idea = ideas(:one)
     session[:user_id] = @idea.user_id
-
-    def @controller.notifier.emit(event, msg)
-      true
-    end
   end
+
 
   test "should get index" do
     get :index

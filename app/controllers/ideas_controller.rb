@@ -10,6 +10,7 @@ class IdeasController < ApplicationController
     @notifier
   end
 
+
   # GET /ideas
   # GET /ideas.json
   def index
