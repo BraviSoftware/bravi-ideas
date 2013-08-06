@@ -1,5 +1,7 @@
+require 'socketio_client'
+
 class IdeasController < ApplicationController
-  before_filter :check_permissions
+  before_filter :check_permissions, :define_notifier
 
   # GET /ideas
   # GET /ideas.json
@@ -51,7 +53,7 @@ class IdeasController < ApplicationController
 
     respond_to do |format|
       if @idea.save
-        
+        @notifier.emit('new-idea', { :ideaId => @idea.id })
         format.html { redirect_to @idea, notice: 'Idea was successfully created.' }
         format.json { render json: @idea, status: :created, location: @idea }
       else
@@ -82,6 +84,8 @@ class IdeasController < ApplicationController
   def destroy
     @idea = Idea.find(params[:id])
     @idea.destroy
+
+    @notifier.emit('idea-removed', { :ideaId => @idea.id })
 
     respond_to do |format|
       format.html { redirect_to ideas_url }
@@ -121,5 +125,9 @@ class IdeasController < ApplicationController
     unless current_user
       raise SecurityError, "You have no permissions to access this page"
     end
+  end
+
+  def define_notifier
+    @notifier = client = SocketIoClient.new(ENV['NOTIFICATION_SOCKET_URL'])
   end
 end

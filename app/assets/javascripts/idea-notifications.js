@@ -22,8 +22,8 @@ BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
       connection = arguments[2] || getSocketIoConnection();
 
   function getSocketIoConnection() {
-    //return io.connect('http://localhost:8080/');
-    return io.connect('http://bravi-ideas-notify.herokuapp.com:80/');
+    return io.connect('http://localhost:8080/');
+    //return io.connect('http://bravi-ideas-notify.herokuapp.com:80/');
   };
 
   connection.on('idea-new-comment', function (data) {   
@@ -68,11 +68,11 @@ BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
   });
 
   connection.on('new-idea', function (data) {
-    //TODO: update viewmodel with new idea
+    alert(data);
   });
 
   connection.on('idea-removed', function (data) {
-    //TODO: remove idea from view model, treat if it is selected
+    alert(data);
   });
 
   return {
