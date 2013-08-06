@@ -22,6 +22,7 @@ class IdeasControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+
   test "should create idea" do
     assert_difference('Idea.count') do
       post :create, idea: {
