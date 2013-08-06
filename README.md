@@ -17,4 +17,5 @@ export FACEBOOK_APP_ID="insert_the_facebook_app_id_here"
 export FACEBOOK_SECRET="insert_the_secrete_key_here"
 export BRAVI_EMAIL_USER="insert_the_gmail_user_here"
 export BRAVI_EMAIL_PASSWORD="insert_the_gmail_password_here"
+export NOTIFICATION_SOCKET_URL="http://localhost:8080/"
 ```
