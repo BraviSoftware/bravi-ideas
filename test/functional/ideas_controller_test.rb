@@ -5,8 +5,10 @@ class IdeasControllerTest < ActionController::TestCase
   setup do
     @idea = ideas(:one)
     session[:user_id] = @idea.user_id
-  end
 
+    class FakeSocketIoClient; def emit(event, msg); true; end end
+    @controller.notifier = FakeSocketIoClient.new
+  end
 
   test "should get index" do
     get :index
