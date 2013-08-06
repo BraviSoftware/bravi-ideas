@@ -3,6 +3,13 @@ require 'socketio_client'
 class IdeasController < ApplicationController
   before_filter :check_permissions, :define_notifier
 
+  def notifier=(notifier)
+    @notifier = notifier
+  end
+  def notifier
+    @notifier
+  end
+
   # GET /ideas
   # GET /ideas.json
   def index
@@ -103,6 +110,8 @@ class IdeasController < ApplicationController
     vote_liked false
   end
 
+ 
+
   private
   def vote_liked(liked)
     respond_to do |format|
@@ -128,6 +137,8 @@ class IdeasController < ApplicationController
   end
 
   def define_notifier
-    @notifier = client = SocketIoClient.new(ENV['NOTIFICATION_SOCKET_URL'])
+    if @notifier.nil?
+      @notifier = SocketIoClient.new(ENV['NOTIFICATION_SOCKET_URL'])
+    end
   end
 end
