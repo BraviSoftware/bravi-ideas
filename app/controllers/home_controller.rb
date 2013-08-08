@@ -14,6 +14,12 @@ class HomeController < ApplicationController
     respond_with(@ideas)
   end
 
+  # GET /home/idea/id.json
+  def idea
+    @singleIdea = Idea.get_idea_with_user(params[:id])
+    respond_with(@singleIdea)
+  end
+
   # GET /home/comments.json
   def comments
   	@comments = Comment.where(idea_id: params[:id]).joins(:user).select('comments.*, name as user_name, image as user_image').order('comments.id')

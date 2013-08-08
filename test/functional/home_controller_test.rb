@@ -16,6 +16,13 @@ class HomeControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:ideas)
   end
+
+  test "should get single idea" do
+    get :idea, :id => 1, :format => "json"
+
+    assert_response :success
+    assert_not_nil assigns(:singleIdea)
+  end
   
   test "should get ideas sorted by more rated" do
     get :ideas, :format => "json", sort_type: "rated"

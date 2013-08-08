@@ -33,6 +33,17 @@ class Idea < ActiveRecord::Base
   def percent_unliked
     calculate_percent(self.negative)
   end
+
+  def self.get_idea_with_user(idea_id)
+    select("ideas.id, description, negative, positive, title, 
+                ideas.user_id, name as user_name, image as user_image, 
+                votes.user_id as current_user_id_voted,
+                (positive + negative) as votes_amount,
+                (select count(cm.idea_id) from comments cm where cm.idea_id = ideas.id) as comments_amount").
+      joins("inner join users on ideas.user_id = users.id 
+              left outer join votes on ideas.id = votes.idea_id").
+      where("ideas.id = #{idea_id} AND status = ?", OPEN)
+  end
   
   def self.all_and_current_user_voted(user_id = 0, sortType = nil)
     user_id = 0 unless user_id.is_a? Integer

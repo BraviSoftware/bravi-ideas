@@ -1,4 +1,8 @@
-BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
+BraviIdeas.IdeaNotification = function (options) {
+  var viewModel = options.viewModel, 
+      commentModelFunction = options.commentModelFunction, 
+      toastr = options.toastr;
+
   var notify_new_comment = function (data) {
         if(connection.socket.connected)
           connection.emit('idea-new-comment', data);
@@ -19,7 +23,7 @@ BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
         if(connection.socket.connected)
           connection.emit('idea-removed');
       }
-      connection = arguments[2] || getSocketIoConnection();
+      connection = arguments[1] || getSocketIoConnection();
 
   function getSocketIoConnection() {
     return io.connect('http://localhost:8080/');
@@ -30,13 +34,18 @@ BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
     if (viewModel.selected() && viewModel.selected().id === data.ideaId) {
       var model = new BraviIdeas.CommentModel(data.commentModel);
       viewModel.comments.push(model);
+      toastr.info("New comment added by " + data.commentModel.user_name);
     }
-
-    $(viewModel.ideas()).each(function(index, item) {
+    else {
+      $(viewModel.ideas()).each(function(index, item) {
       if (item.id === data.ideaId) {
-        item.upCommentsAmount();
-      }
-    });
+          item.upCommentsAmount();
+
+          toastr.info("New comment added by " + data.commentModel.user_name + " in idea " + data.ideaTitle);
+          return false;
+        }
+      }); 
+    }    
   });
 
   connection.on('idea-comment-removed', function (data) {
@@ -45,7 +54,14 @@ BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
         if (item.id === data.commentModel.id) {
           viewModel.comments.splice(index, 1);
           viewModel.selected().downCommentsAmount();
-          return;
+
+          toastr.info("Comment \'" 
+            + data.commentModel.description.length > 40 ? 
+                data.commentModel.description.substring(0, 40) 
+                : data.commentModel.description 
+            + "\' removed by " + data.commentModel.user_name);
+
+          return false;
         }
       });
     }
@@ -60,19 +76,28 @@ BraviIdeas.IdeaNotification = function (viewModel, commentModelFunction) {
 
   connection.on('idea-rate', function (data) {
     $.each(viewModel.ideas(), function (index, item) {
-        if (item.id === data.ideaId) {
-          item.vote(data.voteType);
-          return;
-        }
+      if (item.id === data.ideaId) {
+        item.vote(data.voteType);
+        toastr.info("Idea " + data.ideaTitle + " rated by " + data.userName);
+        return false;
+      }
     });
   });
 
   connection.on('new-idea', function (data) {
-    alert(data);
+    viewModel.loadSingleIdea(data.ideaId);
+    toastr.info("New idea created by " + data.userName);
   });
 
   connection.on('idea-removed', function (data) {
-    alert(data);
+    $.each(viewModel.ideas(), function (index, item) {
+      if (item.id === data.ideaId) {
+        viewModel.ideas.splice(index, 1);
+        viewModel.amountIdeas(viewModel.ideas().length);
+        toastr.info("Idea " + data.ideaTitle + " removed by " + data.userName);
+        return false;
+      }
+    });
   });
 
   return {

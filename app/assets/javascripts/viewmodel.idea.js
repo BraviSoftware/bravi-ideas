@@ -68,6 +68,17 @@ BraviIdeas.ViewModelIdea = (function(){
 		}
 	},
 
+	loadSingleIdea = function(ideaId) {
+		$.ajax({
+			type: 'GET',
+			url: '/home/idea/' + ideaId + ".json"
+		}).done(function(data) {
+			var formattedIdea = mapItemToModel(data[0], BraviIdeas.IdeaModel);
+			ideas.push(formattedIdea);
+			amountIdeas(ideas().length);
+		});
+	},
+
 	getComments = function(idea, callback){
 		$.ajax({
 			type    : 'GET',
@@ -82,8 +93,12 @@ BraviIdeas.ViewModelIdea = (function(){
 	mapToModel = function (items, modelType){
 		for(var i = 0; i < items.length; i++){
 			// override dto for a proper model
-			items[i] = new modelType(items[i]);
+			items[i] = mapItemToModel(items[i], modelType);
 		};
+	},
+
+	mapItemToModel = function (item, modelType) {
+		return new modelType(item);
 	},
 
 	vote = function (type, callback, idea) {
@@ -97,7 +112,9 @@ BraviIdeas.ViewModelIdea = (function(){
 			//notify users
 			BraviIdeas.IdeaNotificationInstance.notify_idea_rate({
 				ideaId: idea.id, 
-				voteType: type
+				voteType: type,
+				ideaTitle: idea.title,
+				userName: idea.user_name
 			});
 
 		}).fail(function(){
@@ -131,7 +148,8 @@ BraviIdeas.ViewModelIdea = (function(){
 			// notify broadcast
 			BraviIdeas.IdeaNotificationInstance.notify_new_comment({
 				ideaId: selected().id, 
-				commentModel: model
+				commentModel: model,
+				ideaTitle: selected().title
 			});
 		})
 		.fail(function(){
@@ -280,7 +298,8 @@ BraviIdeas.ViewModelIdea = (function(){
 		removeComment: removeComment,
 		selected: selected,
 		selectIdea: selectIdea,
-		sort: sort
+		sort: sort,
+		loadSingleIdea: loadSingleIdea
 	};
 
 	init();
@@ -290,5 +309,9 @@ BraviIdeas.ViewModelIdea = (function(){
 
 // Bind to view
 var mainViewModel = new BraviIdeas.ViewModelIdea();
-BraviIdeas.IdeaNotificationInstance = new BraviIdeas.IdeaNotification(mainViewModel, BraviIdeas.CommentModel);
+BraviIdeas.IdeaNotificationInstance = new BraviIdeas.IdeaNotification({
+	viewModel: mainViewModel, 
+	commentModelFunction: BraviIdeas.CommentModel,
+	toastr: toastr
+});
 ko.applyBindings(mainViewModel);

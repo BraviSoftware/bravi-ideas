@@ -61,7 +61,11 @@ class IdeasController < ApplicationController
 
     respond_to do |format|
       if @idea.save
-        @notifier.emit('new-idea', { :ideaId => @idea.id })
+        @notifier.emit('new-idea', { 
+          :ideaId => @idea.id, 
+          :userName => @idea.user.name,
+          :ideaTitle => @idea.title })
+        
         format.html { redirect_to @idea, notice: 'Idea was successfully created.' }
         format.json { render json: @idea, status: :created, location: @idea }
       else
@@ -78,6 +82,7 @@ class IdeasController < ApplicationController
 
     respond_to do |format|
       if @idea.update_attributes(params[:idea])
+        @notifier.emit('idea-updated', { :ideaId => @idea.id })
         format.html { redirect_to @idea, notice: 'Idea was successfully updated.' }
         format.json { head :no_content }
       else
@@ -93,7 +98,10 @@ class IdeasController < ApplicationController
     @idea = Idea.find(params[:id])
     @idea.destroy
 
-    @notifier.emit('idea-removed', { :ideaId => @idea.id })
+    @notifier.emit('idea-removed', { 
+          :ideaId => @idea.id, 
+          :userName => @idea.user.name,
+          :ideaTitle => @idea.title })
 
     respond_to do |format|
       format.html { redirect_to ideas_url }
