@@ -19,3 +19,11 @@ export BRAVI_EMAIL_USER="insert_the_gmail_user_here"
 export BRAVI_EMAIL_PASSWORD="insert_the_gmail_password_here"
 export NOTIFICATION_SOCKET_URL="http://localhost:8080/"
 ```
+
+## Heroku commands
+
+### Connect to rails console
+
+```bash
+heroku run rails console
+```
