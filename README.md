@@ -20,10 +20,36 @@ export BRAVI_EMAIL_PASSWORD="insert_the_gmail_password_here"
 export NOTIFICATION_SOCKET_URL="http://localhost:8080/"
 ```
 
+
+## Running
+```bash
+bundle install
+rake db:migrate
+rails -s
+```
+
 ## Heroku commands
+
+### Deploy
+
+```bash
+git push heroku master
+```
+
+### Logs
+
+```bash
+heroku logs --tail
+```
 
 ### Connect to rails console
 
 ```bash
 heroku run rails console
+```
+
+### Run rake tasks
+
+```bash
+heroku run rake <task>
 ```
